@@ -27,4 +27,10 @@ gcloud init
 ```
 You are now authenticated with the gcloud CLI!
 ```
-#### Authenticate GitHub
+#### Authenticate Git
+- [X] Initiate Git
+- [X] Create SSH Key
+- [X] Clone Git repo
+```
+git clone git@github.com:hebalkaya/cfDNA-Assignment-Pipeline.git
+```
