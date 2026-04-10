@@ -33,3 +33,11 @@ HEALTHY_METHYLATION_STDEV = 0.05
 TUMOUR_METHYLATION_MEAN = 0.72
 TUMOUR_METHYLATION_STDEV = 0.12
 
+@dataclass
+class SampleData:
+    """Container for one simulated cfDNA/ctDNA sample."""
+    sample_id: str
+    tumour_fraction: float
+    fragment_lengths: np.ndarray
+    methylation_values: np.ndarray
+    is_cancer: bool
