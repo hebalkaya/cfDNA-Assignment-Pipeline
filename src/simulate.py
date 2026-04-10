@@ -59,3 +59,4 @@ def simulate_fragment_lengths(
 
     Returns:
         Array of fragment lengths in base pair (bp)
+    """
