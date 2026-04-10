@@ -14,9 +14,11 @@ These are the notes I am taking along the way. Some as a refresher and others as
 >Fragmentomics is powerful because tumour-derived cfDNA has a distinct fragmentation pattern compared to healthy cfDNA
 >Specifically, tumour cfDNA tends to have shorter fragments and different nucleosomal positioning signatures.
 
-## On the models
+## On the tools
 ### CyclomicsSeq
 * Targeted TP53 mutation detection, consensus calling, validated clinically
+### Epinn
+* PCR-free multi-omics: simultaneous mutation + methylation detection without chemical treatment
 ### NanoRCS
 * The bewest platform (published Genome Research, March 2025)
 * Genome-wide consensus sequencing detecting SNVs + copy number alterations + fragmentomics simultaneously, all from one blood draw
