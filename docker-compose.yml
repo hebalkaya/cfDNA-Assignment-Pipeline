@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  pipeline:
+    build: .
+    volumes:
+      - ./results:/app/results
+    command: python run_analysis.py
+
+  test:
+    build: .
+    volumes:
+      - ./src:/app/src
+      - ./tests:/app/tests
+    command: pytest tests/ -v
