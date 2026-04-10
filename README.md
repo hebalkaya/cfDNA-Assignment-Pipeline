@@ -21,7 +21,7 @@ Obtaining example data from the Cyclomics GitHub repository. Real nanopore cfDNA
 ```Unit tests```: pytest
 
 | System                   | Tool          |
-|--------------------------|:--------------|
+|:-------------------------|:--------------|
 |Cloud environment         |Google Cloud VM|
 |Development environment   |Docker         |
 |Version management        |GitHub         |
