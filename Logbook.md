@@ -27,3 +27,4 @@ gcloud init
 ```
 You are now authenticated with the gcloud CLI!
 ```
+#### Authenticate GitHub
