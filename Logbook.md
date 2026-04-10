@@ -35,4 +35,4 @@ You are now authenticated with the gcloud CLI!
 git clone git@github.com:hebalkaya/cfDNA-Assignment-Pipeline.git
 ```
 #### Build the complete structure
-- [Build the skeleton]
+- [X] Build the skeleton
