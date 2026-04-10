@@ -12,13 +12,6 @@ Rather than pure simulation, parameterising the simulation from published real d
 Obtaining example data from the Cyclomics GitHub repository. Real nanopore cfDNA data. Could be used as validation set as well as option C.
 
 ## Over the Architecture
-```Cloud environment```: Google Cloud VM 
-```Development environment```: Docker 
-```Version management```: GitHub
-```Programming language```: Python
-```Workflow manager```: Nextflow
-```Classifier for cancer detection```: scikit-learn
-```Unit tests```: pytest
 
 | System                   | Tool          |
 |:-------------------------|:--------------|
