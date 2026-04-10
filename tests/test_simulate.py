@@ -28,3 +28,8 @@ def test_methylation_in_valid_range():
     meth = simulate_methylation(0.5, RNG)
     assert np.all(meth >= 0.0)
     assert np.all(meth <= 1.0)
+
+def test_dataset_correct_sample_count():
+    """ Making sure we have correct sample counts when fractions and n per fraction is given"""
+    samples = simulate_dataset([0.0, 0.01, 0.05], n_samples_per_fraction=10)
+    assert len(samples) == 30
