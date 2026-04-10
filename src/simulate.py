@@ -92,4 +92,35 @@ def simulate_methylation(
     mixed = (1 - tumor_fraction) * healthy_methylation + tumor_fraction * tumor_methylation
     return np.clip(mixed, 0.0, 1.0)
 
+def simulate_dataset(
+    tumor_fractions: List[float],
+    n_samples_per_fraction: int = 50,
+    n_fragments_per_sample: int = 1000,
+    seed: int = 42
+) -> List[SampleData]
 
+    """
+    Simulates a full dataset accross multiple tumor fractions
+
+    Args:
+        tumor_fractions: list of tumor fractions (e.g. [0.0, 0.001, 0.01, 0.05])
+        n_samples_per_fraction: samples per tumor fraction
+        n_fragments_per_sample: cfDNA fragments per sample
+        seed: random seed for reproducibility
+
+    Returns:
+        List of SampleData objects 
+    """
+    rng = np.random.default_rng(seed)
+    samples = []
+
+    for tf in tumor_fractions:
+        for i in range(n_samples_per_fraction):
+            samples.append(SampleData(
+                sample_id = f"TF{tf:.4f}_S{i:03d}",
+                tumor_fraction = tf,
+                fragment_lengths = simulate_fragment_lengths(n_fragments_per_sample, tf, rng),
+                methylation_values = simulate_methylation(tf, rng)
+                is_cancer = (tf> 0.0)
+            ))
+    return samples
