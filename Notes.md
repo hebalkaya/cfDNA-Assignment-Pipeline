@@ -9,8 +9,7 @@ These are the notes I am taking along the way. Some as a refresher and others as
 
 `fragmentomics`: The study of cell-free DNA (cfDNA) fragmentation patterns in blood to detect diseases like cancer. By analyzing features like fragment size, end motifs, and nucleosome positioning, it acts as a non-invasive liquid biopsy to identify tumor presence, tissue-of-origin, and progression without needing prior mutation knowledge.
 
-```
-Fragmentomics is powerful because tumour-derived cfDNA has a distinct fragmentation pattern compared to healthy cfDNA
-Specifically, tumour cfDNA tends to have shorter fragments and different nucleosomal positioning signatures.
-```
+>Fragmentomics is powerful because tumour-derived cfDNA has a distinct fragmentation pattern compared to healthy cfDNA
+>Specifically, tumour cfDNA tends to have shorter fragments and different nucleosomal positioning signatures.
+
 
