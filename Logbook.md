@@ -3,9 +3,8 @@
 
 #### Set up Google Cloud
 - [X] Set up Google Cloud
-[https://console.cloud.google.com/welcome](https://console.cloud.google.com/freetrial/signup)
 - [X] Set up Google Cloud Project
-Name: cfdna-pipeline (ID: cfdna-pipeline-492919)
+Name: ```cfdna-pipeline``` (ID: cfdna-pipeline-492919)
 - [X] Set up Google Cloud Data Bucket
-Name: cfdna-results-he (Not publicly accessible)
+Name: ```cfdna-results-he``` (Not publicly accessible)
 - [X] Install the gcloud CLI
