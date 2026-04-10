@@ -26,7 +26,6 @@ Obtaining example data from the [```Cyclomics GitHub repository```](https://gith
 
 ### Module 1 — Data simulation
 Generating realistic cfDNA datasets with known tumour fractions (0%, 0.1%, 0.5%, 1%, 5%, 10%) by mixing:
-
-Healthy cfDNA fragments: Gaussian distribution centred at 167bp
-Tumour cfDNA fragments: shifted distribution with enrichment at 143bp and shorter fragments
-Methylation profiles: tumour samples have hypermethylation at cancer-specific CpG islands
+* Healthy cfDNA fragments: Gaussian distribution centred at 167bp
+* Tumour cfDNA fragments: shifted distribution with enrichment at 143bp and shorter fragments
+* Methylation profiles: tumour samples have hypermethylation at cancer-specific CpG islands
