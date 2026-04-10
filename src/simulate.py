@@ -124,3 +124,18 @@ def simulate_dataset(
                 is_cancer = (tf> 0.0)
             ))
     return samples
+
+def samples_to_dataframe(samples: List[SampleData]
+) -> pd.DataFrame:
+    """
+    Convert list of SampleData to summary Dataframe
+    """
+    return pd.DataFrame([{
+        'sample_id': sample.sample_id,
+        'tumor_fraction': sample.tumor_fraction,
+        'is_cancer': sample.is_cancer,
+        'n_fragments': len(sample.fragment_lengths),
+        'mean_fragment_length': round(np.mean(sample.mean_fragment_length), 2),
+        'median_fragment_length': float(np.median(sample.fragment_lengths)),
+        'mean_methylation': round(float(np.mean(sample.methylation_values)), 4)
+    } for sample in samples])
