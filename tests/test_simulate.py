@@ -9,7 +9,7 @@ def test_fragment_lengths_within_bounds():
     """Making sure all fragments are within min fragment and max fragment bounds"""
     fragments = simulate_fragment_lengths(1000, 0.0, RNG)
     assert np.all(fragments >= MIN_FRAGMENT_LENGTH)
-    assert np.app(fragments <= MAX_FRAGMENT_LENGTH)
+    assert np.all(fragments <= MAX_FRAGMENT_LENGTH)
 
 def test_healthy_longer_than_tumor():
     """Making sure the healthy fragments are always longer than the tumor fragments"""
