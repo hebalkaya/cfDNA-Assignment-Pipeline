@@ -11,4 +11,5 @@ These are the notes I am taking along the way. Some as a refresher and others as
 
 ```Fragmentomics is powerful because tumour-derived cfDNA has a distinct fragmentation pattern compared to healthy cfDNA
 Specifically, tumour cfDNA tends to have shorter fragments and different nucleosomal positioning signatures.
-s
+```
+
