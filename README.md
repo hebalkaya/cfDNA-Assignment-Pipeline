@@ -9,7 +9,7 @@ Tumour-derived cfDNA differs from healthy cfDNA in two independent ways: how it'
 Rather than pure simulation, parameterising the simulation from published real data. The exact fragment length distributions, methylation values, and tumour fractions are taken from published papers and used as ground truth parameters.
 
 ### Option B: Use the Cyclomics public GitHub data
-Obtaining example data from the Cyclomics GitHub repository. Real nanopore cfDNA data. Could be used as validation set as well as option C.
+Obtaining example data from the ```[Cyclomics GitHub repository]```(https://github.com/cyclomics). Real nanopore cfDNA data. Could be used as validation set as well as option C.
 
 ## Over the Architecture
 
