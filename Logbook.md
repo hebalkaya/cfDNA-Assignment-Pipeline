@@ -36,3 +36,21 @@ git clone git@github.com:hebalkaya/cfDNA-Assignment-Pipeline.git
 ```
 #### Build the complete structure
 - [X] Build the skeleton
+
+#### Begin coding
+- [X] Initiated src/simulate.py
+- [X] Initiated tests/test_simulate.py
+- [X] Define data class SampleData
+- [X] Complete simulate_fragment_lengths function within simulate.py
+- [X] Complete test_fragment_lengths_within_bounds within test_simulate.py
+- [X] Complete test_healthy_longer_than_tumor within test_simulate.py
+
+#### Build Docker and run tests inside it
+- [X] Build the Docker image
+```
+docker build -t cfdna-pipeline .
+```
+- [ ] Run tests inside the container
+```
+docker-compose run test
+```
