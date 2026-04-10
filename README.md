@@ -20,7 +20,7 @@ Obtaining example data from the Cyclomics GitHub repository. Real nanopore cfDNA
 ```Classifier for cancer detection```: scikit-learn
 ```Unit tests```: pytest
 
-|System                    | Tool          |
+| System                   | Tool          |
 |--------------------------|:--------------|
 |Cloud environment         |Google Cloud VM|
 |Development environment   |Docker         |
