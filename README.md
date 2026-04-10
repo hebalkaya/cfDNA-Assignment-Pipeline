@@ -29,3 +29,5 @@ Generating realistic cfDNA datasets with known tumour fractions (0%, 0.1%, 0.5%,
 * Healthy cfDNA fragments: Gaussian distribution centred at 167bp
 * Tumour cfDNA fragments: shifted distribution with enrichment at 143bp and shorter fragments
 * Methylation profiles: tumour samples have hypermethylation at cancer-specific CpG islands
+
+> Will add upcoming modules when previous are ready
