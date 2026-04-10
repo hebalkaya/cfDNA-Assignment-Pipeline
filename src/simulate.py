@@ -97,7 +97,7 @@ def simulate_dataset(
     n_samples_per_fraction: int = 50,
     n_fragments_per_sample: int = 1000,
     seed: int = 42
-) -> List[SampleData]
+) -> List[SampleData]:
 
     """
     Simulates a full dataset accross multiple tumor fractions
@@ -120,7 +120,7 @@ def simulate_dataset(
                 sample_id = f"TF{tf:.4f}_S{i:03d}",
                 tumor_fraction = tf,
                 fragment_lengths = simulate_fragment_lengths(n_fragments_per_sample, tf, rng),
-                methylation_values = simulate_methylation(tf, rng)
+                methylation_values = simulate_methylation(tf, rng),
                 is_cancer = (tf> 0.0)
             ))
     return samples
