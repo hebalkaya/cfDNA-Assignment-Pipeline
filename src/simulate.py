@@ -60,3 +60,12 @@ def simulate_fragment_lengths(
     Returns:
         Array of fragment lengths in base pair (bp)
     """
+    n_tumor = int(n_fragments * tumor_fraction)
+    n_healthy = n_fragments - n_tumor
+
+    healthy_fragments = rng.normal(HEALTHY_FRAGMENT_MEAN, HEALTHY_FRAGMENT_STDEV, n_healthy) # Random from normal distribution
+    tumor_fragments = rng.normal(TUMOR_FRAGMENT_MEAN, TUMOR_FRAGMENT_STDEV, n_tumor)
+
+    all_fragments = np.concatenate([healthy_fragments, tumor_fragments])
+    return np.clip(all_fragments, MIN_FRAGMENT_LENGTH, MAX_FRAGMENT_LENGTH).astype(int) # Making sure to keep the fragments that are within the proper range 
+
