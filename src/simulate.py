@@ -16,3 +16,12 @@ import numpy as np
 import pandas as pd
 from dataclasses import dataclass
 from typing import List
+
+
+# Fragment length parameters (from published values)
+HEALTHY_FRAGMENT_MEAN = 167
+HEALTHY_FRAGMENT_STD = 20
+TUMOUR_FRAGMENT_MEAN = 143
+TUMOUR_FRAGMENT_STD = 30
+MIN_FRAGMENT_LENGTH = 50
+MAX_FRAGMENT_LENGTH = 400
