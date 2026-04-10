@@ -54,7 +54,7 @@ def simulate_fragment_lengths(
 
     Args:
         n_fragments: number of fragments to simulate
-        tumor_fraction: proportion of tumor-derived fragments (0.0-1.0)
+        tumor_fraction: proportion of tumor-derived fragments (0.0 - 1.0)
         rng: numpy random generator
 
     Returns:
@@ -68,4 +68,28 @@ def simulate_fragment_lengths(
 
     all_fragments = np.concatenate([healthy_fragments, tumor_fragments])
     return np.clip(all_fragments, MIN_FRAGMENT_LENGTH, MAX_FRAGMENT_LENGTH).astype(int) # Making sure to keep the fragments that are within the proper range 
+
+def simulate_methylation(
+    tumor_fraction: float,
+    rng: np.random.Generator
+) -> np.ndarray:
+    """
+    Simulates CpG methylation values for a cfDNA/ctDNA sample.
+
+    Observed methylation if a weighted mix of healthy and tumor methylation.
+
+    Args:
+        tumor_fraction: proportion of tumor-derived cfDNA (0.0 - 1.0)
+        rng: numpy random generator
+
+    Returns:
+        Array of methylation values (0.0 to 1.0)
+    """
+
+    healthy_methylation = rng.normal(HEALTHY_METHYLATION_MEAN, HEALTHY_METHYLATION_STDEV, N_CPG_SITES)
+    tumor_methylation = rng.normal(TUMOR_METHYLATION_MEAN, TUMOR_METHYLATION_STDEV, N_CPG_SITES)
+
+    mixed = (1 - tumor_fraction) * healthy_methylation + tumor_fraction * tumor_methylation
+    return np.clip(mixed, 0.0, 1.0)
+
 
