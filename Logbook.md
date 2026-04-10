@@ -50,7 +50,9 @@ git clone git@github.com:hebalkaya/cfDNA-Assignment-Pipeline.git
 ```
 docker build -t cfdna-pipeline .
 ```
-- [ ] Run tests inside the container
+- [X] Run tests inside the container
 ```
-docker-compose run test
+docker compose run test
 ```
+- [X] Pass the test: test_fragment_lengths_within_bounds
+- [X] Pass the test: test_healthy_longer_than_tumor
