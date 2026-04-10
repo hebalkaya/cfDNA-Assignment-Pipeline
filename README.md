@@ -20,6 +20,17 @@ Obtaining example data from the Cyclomics GitHub repository. Real nanopore cfDNA
 ```Classifier for cancer detection```: scikit-learn
 ```Unit tests```: pytest
 
+|System                    | Tool          |
+| ------------------------ |:-------------:|
+|Cloud environment         |Google Cloud VM|
+|Development environment   |Docker         |
+|Version management        |GitHub         |
+|Programming language      |Python         |
+|Workflow manager          |Nextflow       |
+|Classifier                |scikit-learn   |
+|Unit tests                |pytest         |
+
+
 ### Module 1 — Data simulation
 Generating realistic cfDNA datasets with known tumour fractions (0%, 0.1%, 0.5%, 1%, 5%, 10%) by mixing:
 
