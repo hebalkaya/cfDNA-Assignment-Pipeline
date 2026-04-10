@@ -16,10 +16,8 @@ These are the notes I am taking along the way. Some as a refresher and others as
 
 ## On the models
 ### CyclomicsSeq
-Targeted TP53 mutation detection, consensus calling, validated clinically
+* Targeted TP53 mutation detection, consensus calling, validated clinically
 ### NanoRCS
-The bewest platform (published Genome Research, March 2025)
-
-Genome-wide consensus sequencing detecting SNVs + copy number alterations + fragmentomics simultaneously, all from one blood draw
-
-Detects tumor fractions as low as 0.24%
+* The bewest platform (published Genome Research, March 2025)
+* Genome-wide consensus sequencing detecting SNVs + copy number alterations + fragmentomics simultaneously, all from one blood draw
+* Detects tumor fractions as low as 0.24%
