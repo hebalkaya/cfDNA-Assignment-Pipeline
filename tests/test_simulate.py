@@ -18,6 +18,13 @@ def test_healthy_longer_than_tumor():
     assert np.mean(healthy) > np.mean(tumor)
 
 def test_methylation_increases_with_tumor_fraction():
+    """Making sure the healthy fragments have lower methylation level"""
     low = np.mean(simulate_methylation(0.0, RNG)) #Only healthy samples
     high = np.mean(simulate_methylation(1.0, RNG)) #Only tumor samples
     assert high > low
+
+def test_methylation_in_valid_range():
+    """Making sure all methylations are within given bounds"""
+    meth = simulate_methylation(0.5, RNG)
+    assert np.all(meth >= 0.0)
+    assert np.all(meth <= 1.0)
