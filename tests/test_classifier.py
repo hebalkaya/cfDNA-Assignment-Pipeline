@@ -91,3 +91,7 @@ def test_sensitivity_increases_with_tumor_fraction(model1_results):
         high_tf_sens = model1_results['sensitivity_by_tf'][tfs[-1]] #last from the list
         assert high_tf_sens >= low_tf_sens
 
+def test_feature_importance_sums_to_one(model1_results):
+    """Making sure the sum of feature importance is < 1e-6"""
+    total = sum(model1_results['feature_importance'].values())
+    assert abs(total - 1.0) < 1e-6 # Avoiding rounding up errors.
