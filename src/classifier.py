@@ -54,3 +54,40 @@ def prepare_features(
     X = df[feature_columns].values.astype(float)
     y = df['is_cancer'].astype(int).values
     return X, y
+
+def compute_sensitivity_by_tumor_fraction(
+    df: pd.DataFrame,
+    y_prob: np.ndarray,
+    threshold: float = 0.5
+) -> Dict[float, float]:
+    """
+    Computes sensitivity (recall) separately at each tumor fraction.
+
+    Key clinical metric. It tells us at what tumor fraction the model
+    can reliably detect cancer.
+
+    Args:
+        df: DataFrame with 'tumor_fraction' and 'is_cancer' columns
+        y_prob: predicted cancer probabilities from cross-validation
+        threshold: classification threshold (default = 0.5)
+    
+    Returns:
+        Dictionary of tumor_fraction -> sensitivity
+    """
+    df = df.copy()
+    df['y_prob'] = y_prob
+    df['y_pred'] = (y_prob >= threshold).astype(int)
+
+    sensitivity_by_tf = {}
+
+    # Only computing for cancer samples (tf > 0)
+    cancer_df = df[df['is_cancer'] == True]
+
+    for tf in sorted(cancer_df['tumor_fraction'].unique()):
+        subset = cancer_df[cancer_df['tumor_fraction'] == tf]
+        if len(subset) == 0:
+            continue
+        sensitivity = (subset['ypred'] == 1).mean()
+        sensitivity_by_tf[tf] = float(sensitivity)
+    
+    return sensitivity_by_tf
