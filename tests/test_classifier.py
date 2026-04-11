@@ -23,3 +23,15 @@ def frag_df():
         seed = 42
     )
     return extract_fragmentomics_dataframe(samples)
+
+@pytest.fixture(scope="module")
+def model1_results(frag_df):
+    """
+    Training the first model
+    """
+    return train_and_evaluate(
+        frag_df,
+        FRAGMENTOMICS_FEATURES,
+        model_name="Test Model 1",
+        cv_folds=3
+    )
