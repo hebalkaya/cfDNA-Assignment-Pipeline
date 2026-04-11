@@ -117,4 +117,22 @@ def nucleosomal_peak_ratio(fragment_lengths: np.ndarray) -> float:
         return float(nucleosomal)
     return float(nucleosomal/sub_nucleosomal)
 
+def short_to_long_ratio(fragment_lengths: np.ndarray) -> float:
+    """
+    Direct ratio of short (<150bp) to long (>180bp) fragments.
+
+    Compact summary of the fragment length shift in tumor samples.
+    Increases with tumor fraction (monotonous).
+
+    Args:
+        fragment_lengths: array of fragment lengths in bp
     
+    Returns:
+        Short/long ratio (higher = more tumor-like)
+    """
+    n_short = np.sum(fragment_lengths < SHORT_THRESHOLD)
+    n_long = np.sum(fragment_lengths > LONG_THRESHOLD)
+    # Avoiding division by zero
+    if n_long == 0:
+        return float(n_short)
+    return float(n_short / n_long)
