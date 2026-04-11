@@ -16,6 +16,14 @@ import numpy as np
 import pandas as pd
 from typing import List, Tuple, Dict
 from sklearn.ensemble import RandomForestClassifier
+from sklearn.preprocessing import StandardScaler
+from sklearn.model_selection import StratifiedKFold, cross_val_predict
+from sklearn.metrics import (
+    roc_curve,
+    roc_auc_score,
+    classification_report,
+    confusion_matrix
+)
 
 # Feature column definitions
 FRAGMENTOMICS_FEATURES = [
@@ -87,7 +95,7 @@ def compute_sensitivity_by_tumor_fraction(
         subset = cancer_df[cancer_df['tumor_fraction'] == tf]
         if len(subset) == 0:
             continue
-        sensitivity = (subset['ypred'] == 1).mean()
+        sensitivity = (subset['y_pred'] == 1).mean()
         sensitivity_by_tf[tf] = float(sensitivity)
     
     return sensitivity_by_tf
@@ -155,10 +163,10 @@ def train_and_evaluate(
     print(f"Model: {model_name}")
     print(f"Features: {len(feature_columns)}")
     print(f"Samples: {len(y)} ({y.sum()} cancer, {(~y.astype(bool)).sum()} healthy)")
-    print(f"ROC AUC: {auc:.rf}")
+    print(f"ROC AUC: {auc:.4f}")
     print(f"\nSensitivity by tumor fraction:")
     for tf, sens in sensitivity_by_tf.items():
-        print(f"    TF = {tf:.4f}:  {sens:.3f}")
+        print(f"  TF={tf}: {sens:.3f}")
     print(f"\nTop features by importance:")
     sorted_importance = sorted(
         feature_importance.items(),
@@ -166,7 +174,7 @@ def train_and_evaluate(
         reverse = True
     )
     for feat, imp in sorted_importance:
-        print(f"    {feat}:     {imp:.4f}")
+        print(f"  {feat}: {imp:.4f}")
     
     return {
         'model_name': model_name,

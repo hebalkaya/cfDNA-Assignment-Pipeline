@@ -45,3 +45,12 @@ def test_prepare_features_binary_labels(frag_df):
     """Making sure the binary information contains only 0 or 1 """
     _, y = prepare_features(frag_df, FRAGMENTOMICS_FEATURES)
     assert set(np.unique(y)).issubset({0, 1})
+
+def test_results_has_required_keys(model1_results):
+    """Making sure the test results have all of the expected keys"""
+    required = {
+        'model_name', 'model', 'scaler', 'feature_columns',
+        'y_true', 'y_prob', 'auc', 'fpr', 'tpr',
+        'sensitivity_by_tf', 'feature_importance'
+    }
+    assert required.issubset(set(model1_results.keys()))
