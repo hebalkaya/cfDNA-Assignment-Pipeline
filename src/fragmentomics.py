@@ -88,3 +88,33 @@ def fragment_length_entropy(fragment_lengths: np.ndarray) -> float:
     # Adding a small pseudocount to avoid log(0)
     probs = (counts + 1e-10) / (counts.sum() + ENTROPY_BINS * 1e-10)
     return float(-np.sum(probs * np.log(probs)))
+
+def nucleosomal_peak_ratio(fragment_lengths: np.ndarray) -> float:
+    """
+    Ratio of nucleosomal to sub-nucleosomal fragments.
+
+    In healthy samples: many nucleosomal (160 - 180bp) fragments.
+    In tumor samples: enrichment of sub-nucleosomal (120 - 150bp) fragments.
+    Ratio drops as tumor fraction increaases.
+
+    Args:
+        fragment_lengths: array of fragment lengths in bp
+    
+    Returns:
+        Nucleosomal/sub-nucleosomal ratio (higher = healthier)
+    """
+    nucleosomal = np.sum(
+        (fragment_lengths >= NUCLEOSOMAL_LOW) &
+        (fragment_lengths <= NUCLEOSOMAL_HIGH)
+    )
+
+    sub_nucleosomal = np.sum(
+        (fragment_lengths >= SUB_NUCLEOSOMAL_LOW) &
+        (fragment_lengths <= NUCLEOSOMAL_HIGH)
+    )
+    # Avoiding division by zero
+    if sub_nucleosomal == 0:
+        return float(nucleosomal)
+    return float(nucleosomal/sub_nucleosomal)
+
+    
