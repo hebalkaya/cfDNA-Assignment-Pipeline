@@ -28,4 +28,10 @@ def test_healthy_has_higher_long_fragment_ratio():
 def test_entropy_is_positive():
     """Making sure shannon entropy for fragment lengths are positive"""
     entropy = fragment_length_entropy(HEALTHY_SAMPLE.fragment_lengths)
-    assert entropy > 0.0 
+    assert entropy > 0.0
+
+def test_nucleosomal_peak_ratio_healthy_greater():
+    """Making sure the healthy (nucleosomal) peaks are greater in healthy sample"""
+    healthy_ratio = nucleosomal_peak_ratio(HEALTHY_SAMPLE.fragment_lengths)
+    tumor_ratio = nucleosomal_peak_ratio(TUMOR_SAMPLE.fragment_lengths)
+    assert healthy_ratio > tumor_ratio
