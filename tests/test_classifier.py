@@ -68,3 +68,10 @@ def test_y_prob_in_valid_range(model1_results):
     """Making sure y_prob is within valid range (0.0 - 1.0)"""
     assert np.all(model1_results['y_prob'] >= 0.0)
     assert np.all(model1_results['y_prob'] <= 1.0)
+
+def test_sensitivity_by_tf_keys(model1_results):
+    """Making sure sensitivity is computed for each cancer tumor fraction"""
+    expected_tfs = {0.01, 0.05, 0.10}
+    actual_tfs = set(model1_results['sensitivity_by_tf'].keys())
+    assert expected_tfs.issubset(actual_tfs)
+    
