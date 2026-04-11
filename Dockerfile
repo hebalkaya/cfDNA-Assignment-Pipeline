@@ -13,9 +13,11 @@ COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy source code
-COPY src/ ./src/
-COPY tests/ ./tests/
-COPY run_analysis.py .
+COPY . . 
+
+# Installing the package itself so src is importable from anywhere
+# Fix for ModuleNotFoundError: No module named 'src'
+RUN pip install -e .
 
 # Default: run full analysis
 CMD ["python", "run_analysis.py"]
