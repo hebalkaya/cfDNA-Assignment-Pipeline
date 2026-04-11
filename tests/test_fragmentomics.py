@@ -41,3 +41,14 @@ def test_short_to_long_ratio_tumor_greater():
     healthy_ratio = short_to_long_ratio(HEALTHY_SAMPLE.fragment_lengths)
     tumor_ratio = short_to_long_ratio(TUMOR_SAMPLE.fragment_lengths)
     assert tumor_ratio > healthy_ratio
+
+def test_extract_fragmentomics_features_returns_correct_keys():
+    """Making sure extract_fragmentomics_features compiles and returns correct keys"""
+    features = extract_fragmentomics_features(HEALTHY_SAMPLE)
+    expected_keys = {
+        'median_fragment_length', 'short_fragment_ratio',
+        'long_fragment_ratio', 'fragment_length_entropy',
+        'nucleosomal_peak_ratio', 'short_to_long_ratio',
+        'sample_id', 'tumor_fraction', 'is_cancer'
+    }
+    assert set(features.keys()) == expected_keys
