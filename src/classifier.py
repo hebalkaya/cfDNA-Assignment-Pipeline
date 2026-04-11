@@ -151,7 +151,7 @@ def train_and_evaluate(
     model.fit(X_scaled, y)
     feature_importance = dict(zip(feature_columns, model.feature_importances_))
 
-    print(f"\n{'='50}")
+    print(f"\n{'='*50}")
     print(f"Model: {model_name}")
     print(f"Features: {len(feature_columns)}")
     print(f"Samples: {len(y)} ({y.sum()} cancer, {(~y.astype(bool)).sum()} healthy)")
@@ -168,7 +168,7 @@ def train_and_evaluate(
     for feat, imp in sorted_importance:
         print(f"    {feat}:     {imp:.4f}")
     
-   return {
+    return {
         'model_name': model_name,
         'model': model,
         'scaler': scaler,

@@ -26,12 +26,17 @@ def frag_df():
 
 @pytest.fixture(scope="module")
 def model1_results(frag_df):
-    """
-    Training the first model
-    """
+    """Training the first model"""
     return train_and_evaluate(
         frag_df,
         FRAGMENTOMICS_FEATURES,
         model_name="Test Model 1",
         cv_folds=3
     )
+
+def test_prepare_features_shape(frag_df):
+    """Making sure the feature shape conforms to expectation"""
+    X, y = prepare_features(frag_df, FRAGMENTOMICS_FEATURES)
+    assert X.shape[0] == len(frag_df)
+    assert X.shape[1] == len(FRAGMENTOMICS_FEATURES)
+    assert len(y) == len(frag_df)
