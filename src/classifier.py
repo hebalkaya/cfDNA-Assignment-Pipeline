@@ -189,3 +189,27 @@ def train_and_evaluate(
         'sensitivity_by_tf': sensitivity_by_tf,
         'feature_importance': feature_importance
     }
+
+if __name__ == "__main__":
+    from src.simulate import simulate_dataset
+    from src.fragmentomics import extract_fragmentomics_dataframe
+
+    print("Generating dataset ...")
+    TUMOR_FRACTIONS = [0.0, 0.001, 0.005, 0.01, 0.05, 0.10]
+    samples = simulate_dataset(
+        TUMOR_FRACTIONS,
+        n_samples_per_fraction = 100,
+        seed = 42
+    )
+
+    print("Extracting fragmentomics features ...")
+    frag_df = extract_fragmentomics_dataframe(samples)
+
+    print("Training Model 1: Fragmentomics only ...")
+    results = train_and_evaluate(
+        frag_df,
+        FRAGMENTOMICS_FEATURES,
+        model_name = "Model 1 - Fragmentomics Only"
+    )
+
+    print(f"\nFinal AUC: {results['auc']:4f}")
