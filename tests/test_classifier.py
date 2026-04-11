@@ -82,3 +82,12 @@ def test_sensitivity_in_valid_range(model1_results):
     """
     for tf, sens in model1_results['sensitivity_by_tf'].items():
         assert 0.0 <= sens <= 1.0, f"Sensitivity our of range at TF={tf}"
+
+def test_sensitivity_increases_with_tumor_fraction(model1_results):
+    """Making sure that higher tumor fraction should generally yield higher sensitivity"""
+    tfs = sorted(model1_results['sensitivity_by_tf'].keys())
+    if len (tfs) >= 2:
+        low_tf_sens = model1_results['sensitivity_by_tf'][tfs[0]]
+        high_tf_sens = model1_results['sensitivity_by_tf'][tfs[-1]] #last from the list
+        assert high_tf_sens >= low_tf_sens
+
