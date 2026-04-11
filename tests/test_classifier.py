@@ -54,3 +54,7 @@ def test_results_has_required_keys(model1_results):
         'sensitivity_by_tf', 'feature_importance'
     }
     assert required.issubset(set(model1_results.keys()))
+
+def test_auc_is_reasonable(model1_results):
+    """Making sure AUC is better than random (0.5) with clear signals."""
+    assert model1_results['auc'] > 0.6
