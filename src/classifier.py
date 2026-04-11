@@ -35,3 +35,22 @@ RF_PARAMS = {
     'random_state': 42,
     'n_jobs': -1
 }
+
+def prepare_features(
+    df: pd.DataFrame,
+    feature_columns: List[str]
+) -> Tuple[np.ndarray, np.ndarray]
+    """
+    Extract feature matrix and label vector from DataFrame.
+
+    Args:
+        df: DataFrame with feature columns and 'is_cancer' column
+        feature_columns: list of column names to use as features
+    
+    Returns:
+        X: feature matrix (n_samples, n_features)
+        y: label vector (n_samples,) - 1 = cancer, 0 = healthy
+    """
+    X = df[feature_columns].values.astype(float)
+    y = df['is_cancer'].astype(int).values
+    return X, y
