@@ -58,3 +58,8 @@ def test_results_has_required_keys(model1_results):
 def test_auc_is_reasonable(model1_results):
     """Making sure AUC is better than random (0.5) with clear signals."""
     assert model1_results['auc'] > 0.6
+
+def test_auc_in_valid_range(model1_results):
+    """Making sure auc is within valid range (0.0 - 1.0)"""
+    assert np.all(model1_results['y_prob'] >= 0.0)
+    assert np.all(model1_results['y_prob'] <= 1.0)
