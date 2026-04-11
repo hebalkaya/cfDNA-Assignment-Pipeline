@@ -12,3 +12,10 @@ def test_short_fragment_ratio_range():
     """Making sure that short fragment length ratio falls within range 0.0 - 1.0"""
     ratio = short_fragment_ratio(HEALTHY_SAMPLE.fragment_lengths)
     assert 0.0 <= ratio <= 1.0
+
+def test_tumor_has_higher_short_fragment_ratio():
+    """Making sure tumor sample has higher short fragment ratio compared to a healthy sample"""
+    healthy_ratio = short_fragment_ratio(HEALTHY_SAMPLE.fragment_lengths)
+    tumor_ratio = short_fragment_ratio(TUMOR_SAMPLE.fragment_lengths)
+    assert tumor_ratio > healthy_ratio
+
