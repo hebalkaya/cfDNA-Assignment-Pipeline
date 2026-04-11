@@ -62,3 +62,16 @@ def test_extract_dataframe_shape ():
     df = extract_fragmentomics_dataframe(samples)
     assert len(df) == 20
     assert 'short_fragment_ratio' in df.columns
+
+# Edge case testing
+def test_no_division_by_zero_all_short():
+    """Edge case: all fragments are short."""
+    fragments = np.full(100, 100) # all set as 100bp
+    ratio = short_to_long_ratio(fragments)
+    assert ratio >= 0.0
+
+def test_nucleosomal_ratio_no_division_by_zero():
+    """Edge case: no sub-nucleosomal fragments present."""
+    fragments = np.full(100, 170) # all set as 170bp
+    ratio = nucleosomal_peak_ratio(fragments)
+    assert ratio >= 0.0
