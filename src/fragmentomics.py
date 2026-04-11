@@ -48,3 +48,23 @@ def short_fragment_ratio(fragment_lengths: np.ndarray) -> float:
     # In NumPy, True is 1 and False is 0. When you take the mean of a
     # list of ones and zeros, we get the proportion of True values.
     return float(np.mean(fragment_lengths < SHORT_THRESHOLD))
+
+def long_fragment_ratio(fragment_lengths: np.ndarray) -> float:
+    """
+    Fraction of fragments above LONG_THRESHOLD (180bp).
+
+    Healthy cfDNA has a higher proportion of long nucleosomal fragments.
+    This ratio decreases with increasing tumor fraction.
+
+    Args:
+        fragment_lengths: array of fragment lengths in bp
+
+    Returns:
+        Proportion of fragments above threshold (0.0 - 1.0)
+    
+    Note: The short_fragment_ratio and the long_fragment_ratio functions
+    could be merged into a fragment_length_ratio function to do both
+    simultaneously. This approach was taken to maintain modularity.
+    """
+    return float(np.mean(fragment_lengths > LONG_THRESHOLD))
+
