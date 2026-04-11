@@ -69,19 +69,22 @@ def long_fragment_ratio(fragment_lengths: np.ndarray) -> float:
     return float(np.mean(fragment_lengths > LONG_THRESHOLD))
 
 def fragment_length_entropy(fragment_lengths: np.ndarray) -> float:
-   """
-   Shannon entropy of the fragment length distribution.
-
-   Captures distributional shape beyond central tendency.
-   Tumor cfDNA (ctDNA) shows more variable fragmentation (higher entropy).
+    """
+    Shannon entropy of the fragment length distribution.
+    
+    Captures distributional shape beyond central tendency.
+    Tumor cfDNA (ctDNA) shows more variable fragmentation (higher entropy).
+    
+    S(X) = −∑ p(xi) log(p(xi))
 
     Args:
         fragment_lengths: array of fragment lengths in bp
-
+    
     Returns:
         Shannon entropy (nats)
     """
-    counts, _ = np.histogram(fragment_lengths, bins=ENTROPY_BINS)
-    # Adding small pseudocount to avoid log(0)
+
+    counts, _ = np.histogram(fragment_lengths, bins = ENTROPY_BINS)
+    # Adding a small pseudocount to avoid log(0)
     probs = (counts + 1e-10) / (counts.sum() + ENTROPY_BINS * 1e-10)
     return float(-np.sum(probs * np.log(probs)))
