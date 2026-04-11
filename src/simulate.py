@@ -139,3 +139,13 @@ def samples_to_dataframe(samples: List[SampleData]
         'median_fragment_length': float(np.median(sample.fragment_lengths)),
         'mean_methylation': round(float(np.mean(sample.methylation_values)), 4)
     } for sample in samples])
+
+    if __name__ == "__main__":
+        TUMOR_FRACTIONS = [0.0, 0.001, 0.005, 0.01, 0.05, 0.10]
+        samples = simulate_dataset(TUMOR_FRACTIONS, n_samples_per_fraction = 20)
+        df = sample_to_dataframe(samples)
+        print(df.groupby('tumor_fraction').agg({
+            'mean_fragment_length': 'mean',
+            'mean_methylation': 'mean'
+        }).round(4))
+        print(f"\nTotal samples: {len(samples)}")
