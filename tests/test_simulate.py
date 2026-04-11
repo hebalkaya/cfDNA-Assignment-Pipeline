@@ -30,22 +30,22 @@ def test_methylation_in_valid_range():
     assert np.all(meth <= 1.0)
 
 def test_dataset_correct_sample_count():
-    """ Making sure we have correct sample counts when fractions and n per fraction is given"""
+    """Making sure we have correct sample counts when fractions and n per fraction is given"""
     samples = simulate_dataset([0.0, 0.01, 0.05], n_samples_per_fraction=10)
     assert len(samples) == 30
 
 def test_zero_fraction_labelled_healthy():
-    """ Making sure that datasets without any tumor samples fraction 0.0 are labelled healthy"""
+    """Making sure that datasets without any tumor samples fraction 0.0 are labelled healthy"""
     samples = simulate_dataset([0.0], n_samples_per_fraction = 5)
     assert all(not sample.is_cancer for sample in samples)
 
 def test_nonzero_fraction_labelled_cancer():
-    """ Making sure that with some tumor samples (fraction <0) are labelled cancer"""
+    """Making sure that with some tumor samples (fraction <0) are labelled cancer"""
     samples = simulate_dataset([0.05], n_samples_per_fraction = 5)
     assert all(sample.is_cancer for sample in samples)
 
 def test_reproducibility():
-    """ Making sure two different dataset made with same parameters and seed return same results"""
+    """Making sure two different dataset made with same parameters and seed return same results"""
     s1 = simulate_dataset([0.01], n_samples_per_fraction = 3, seed = 42)
     s2 = simulate_dataset([0.01], n_samples_per_fraction = 3, seed = 42)
     assert np.array_equal(s1[0].fragment_lengths, s2[0].fragment_lengths)
