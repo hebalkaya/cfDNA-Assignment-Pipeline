@@ -136,3 +136,30 @@ def short_to_long_ratio(fragment_lengths: np.ndarray) -> float:
     if n_long == 0:
         return float(n_short)
     return float(n_short / n_long)
+
+
+def extract_fragmentomics_features(sample: SampleData) -> Dict[str, float]:
+    """
+    Extract all fragmentomics features from a single sample.
+
+    Args:
+        sample: SampleData object containing fragment lengths
+    
+    Returns:
+        Dictionary of feature name -> feature value
+    
+    Note: Returns as dict instead of a custom class because scikit-learn requires a numpy array.
+    This approach removes the need for to_dict() later.
+    """
+    sample_fragment = sample.fragment_lengths
+    return {
+        'median_fragment_length': float(np.median(sample_fragment)),
+        'short_fragment_ratio': short_fragment_ratio(sample_fragment),
+        'long_fragment_ratio': long_fragment_ratio(sample_fragment),
+        'fragment_length_entropy': fragment_length_entropy(sample_fragment),
+        'nucleosomal_peak_ratio': nucleosomal_peak_ratio(sample_fragment),
+        'short_to_long_ratio': short_to_long_ratio(sample_fragment),
+        'sample_id': sample.sample_id,
+        'tumor_fraction': sample.tumor_fraction,
+        'is_cancer': sample.is_cancer
+    }
