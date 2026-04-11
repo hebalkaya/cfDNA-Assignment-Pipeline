@@ -19,3 +19,8 @@ def test_tumor_has_higher_short_fragment_ratio():
     tumor_ratio = short_fragment_ratio(TUMOR_SAMPLE.fragment_lengths)
     assert tumor_ratio > healthy_ratio
 
+def test_healthy_has_higher_long_fragment_ratio():
+    healthy_ratio = long_fragment_ratio(HEALTHY_SAMPLE.fragment_lengths)
+    """Making sure healthy sample has higher long fragment ratio compared to a tumor sample"""
+    tumor_ratio = long_fragment_ratio(TUMOR_SAMPLE.fragment_lengths)
+    assert healthy_ratio > tumor_ratio
