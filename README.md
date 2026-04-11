@@ -23,6 +23,36 @@ Obtaining example data from the [```Cyclomics GitHub repository```](https://gith
 |Classifier                |scikit-learn   |
 |Unit tests                |pytest         |
 
+## Over the Structure
+```
+cfDNA-Assignment-Pipeline/
+├── .github/
+│   └── workflows/
+│       └── test.yml
+├── src/
+│   ├── __init__.py
+│   ├── simulate.py
+│   ├── fragmentomics.py
+│   ├── methylation.py
+│   ├── classifier.py
+│   └── report.py
+├── tests/
+│   ├── __init__.py
+│   ├── test_simulate.py
+│   ├── test_fragmentomics.py
+│   ├── test_methylation.py
+│   └── test_classifier.py
+├── notebooks/
+│   └── explore.py              ← local only
+├── results/                    ← gitignored, created locally
+├── Dockerfile
+├── docker-compose.yml
+├── requirements.txt
+├── run_analysis.py
+├── main.nf
+├── nextflow.config
+└── README.md
+```
 
 ### Module 1 — Data simulation (simulate.py)
 Generating realistic cfDNA datasets with known tumour fractions (0%, 0.1%, 0.5%, 1%, 5%, 10%) by mixing:
@@ -52,6 +82,9 @@ Training three scikit-learn classifiers:
 Comparing sensitivity and specificity at each tumour fraction threshold.
 
 > Upcoming modules will be added once ready
+
+### Module 5 — Nextflow pipeline
+### Module 6 — Reporting
 
 ### Model 1 Results: Random Forest on Fragmentomics only 
 ```
