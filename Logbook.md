@@ -40,4 +40,42 @@ docker compose run test
 - [X] Complete src/fragmentomics.py
 - [X] Complete tests/test_fragmentomics.py
 - [X] Initiate src/classifier.py
-- [ ] Complete classifier model 1: Random Forest on Fragmentomics
+- [X] Complete classifier model 1: Random Forest on Fragmentomics
+- [X] Complete full docker composer build
+- [X] Complete full docker composer run
+```
+docker compose build --no-cache
+```
+```
+docker compose run --remove-orphans pipeline python src/classifier.py
+``` 
+
+#### Model 1 Results: Random Forest on Fragmentomics only 
+```
+Generating dataset ...
+Extracting fragmentomics features ...
+Training Model 1: Fragmentomics only ...
+
+==================================================
+Model: Model 1 - Fragmentomics Only
+Features: 6
+Samples: 1800 (1500 cancer, 300 healthy)
+ROC AUC: 0.7505
+
+Sensitivity by tumor fraction:
+  TF=0.001: 0.343
+  TF=0.005: 0.473
+  TF=0.01: 0.600
+  TF=0.05: 0.940
+  TF=0.1: 0.997
+
+Top features by importance:
+  fragment_length_entropy: 0.3325
+  short_fragment_ratio: 0.2610
+  short_to_long_ratio: 0.2065
+  nucleosomal_peak_ratio: 0.0867
+  long_fragment_ratio: 0.0705
+  median_fragment_length: 0.0427
+
+Final AUC: 0.750460
+```
