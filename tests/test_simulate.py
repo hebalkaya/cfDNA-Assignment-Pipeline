@@ -43,3 +43,9 @@ def test_nonzero_fraction_labelled_cancer():
     """ Making sure that with some tumor samples (fraction <0) are labelled cancer"""
     samples = simulate_dataset([0.05], n_samples_per_fraction = 5)
     assert all(sample.is_cancer for sample in samples)
+
+def test_reproducibility():
+    """ Making sure two different dataset made with same parameters and seed return same results"""
+    s1 = simulate_dataset([0.01], n_samples_per_fraction = 3, seed = 42)
+    s2 = simulate_dataset([0.01], n_samples_per_fraction = 3, seed = 42)
+    assert np.array_equal(s1[0].fragment_lengths, s2[0].fragment_lengths)
