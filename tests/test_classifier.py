@@ -95,3 +95,8 @@ def test_feature_importance_sums_to_one(model1_results):
     """Making sure the sum of feature importance is < 1e-6"""
     total = sum(model1_results['feature_importance'].values())
     assert abs(total - 1.0) < 1e-6 # Avoiding rounding up errors.
+
+def test_feature_importance_all_features_present(model1_results):
+    """Making sure all fragmentomics features are present in feature_importance"""
+    for feature in FRAGMENTOMICS_FEATURES:
+        assert feature in model1_results['feature_importance']
