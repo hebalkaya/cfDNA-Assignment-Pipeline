@@ -41,7 +41,8 @@ RF_PARAMS = {
     'max_depth': 6,
     'min_samples_leaf': 3,
     'random_state': 42,
-    'n_jobs': -1
+    'n_jobs': -1,
+    'class_weight': 'balanced'
 }
 
 def prepare_features(
@@ -198,7 +199,7 @@ if __name__ == "__main__":
     TUMOR_FRACTIONS = [0.0, 0.001, 0.005, 0.01, 0.05, 0.10]
     samples = simulate_dataset(
         TUMOR_FRACTIONS,
-        n_samples_per_fraction = 100,
+        n_samples_per_fraction = 300,
         seed = 42
     )
 
