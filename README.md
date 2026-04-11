@@ -24,10 +24,61 @@ Obtaining example data from the [```Cyclomics GitHub repository```](https://gith
 |Unit tests                |pytest         |
 
 
-### Module 1 — Data simulation
+### Module 1 — Data simulation (simulate.py)
 Generating realistic cfDNA datasets with known tumour fractions (0%, 0.1%, 0.5%, 1%, 5%, 10%) by mixing:
 * Healthy cfDNA fragments: Gaussian distribution centred at 167bp
 * Tumour cfDNA fragments: shifted distribution with enrichment at 143bp and shorter fragments
 * Methylation profiles: tumour samples have hypermethylation at cancer-specific CpG islands
 
-> Will add upcoming modules when previous are ready
+### Module 2 — Fragmentomics feature extraction (fragmentomics.py)
+Extracting the following features for each sample extract:
+* Median fragment length
+* Short/long fragment ratio (fragments <150bp vs >150bp)
+* Nucleosomal periodicity score
+* Fragment length entropy
+
+### Module 3 — Methylation feature extraction (methylation.py) [Coming soon]
+For each sample extract:
+
+Mean methylation at cancer-specific CpG islands (using published cancer methylation signatures)
+Methylation entropy
+Hypermethylated CpG fraction
+
+### Module 4 — Classifier (classifier.py)
+Training three scikit-learn classifiers:
+- [X] Fragmentomics features only → Random Forest
+- [ ] Methylation features only → Random Forest
+- [ ] Combined features → Random Forest + Logistic Regression?
+Comparing sensitivity and specificity at each tumour fraction threshold.
+
+> Upcoming modules will be added once ready
+
+### Model 1 Results: Random Forest on Fragmentomics only 
+```
+Generating dataset ...
+Extracting fragmentomics features ...
+Training Model 1: Fragmentomics only ...
+
+=========================================
+Model: Model 1 - Fragmentomics Only
+Features: 6
+Samples: 1800 (1500 cancer, 300 healthy)
+ROC AUC: 0.7505
+
+Sensitivity by tumor fraction:
+  TF=0.001:     0.343
+  TF=0.005:     0.473
+  TF=0.01:      0.600
+  TF=0.05:      0.940
+  TF=0.1:       0.997
+
+Top features by importance:
+  fragment_length_entropy:      0.3325
+  short_fragment_ratio:         0.2610
+  short_to_long_ratio:          0.2065
+  nucleosomal_peak_ratio:       0.0867
+  long_fragment_ratio:          0.0705
+  median_fragment_length:       0.0427
+
+Final AUC: 0.750460
+```
