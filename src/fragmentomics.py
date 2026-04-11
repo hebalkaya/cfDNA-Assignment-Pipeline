@@ -31,3 +31,20 @@ NUCLEOSOMAL_HIGH = 180          # nucelosomal window upper boundary
 SUB_NUCLEOSOMAL_LOW = 120       # sub-nucleosomal window lower boundary
 SUB_NUCLEOSOMAL_HIGH = 150      # sub-nucleosomal window upper boundary
 ENTROPY_BINS = 50               # bins for entropy calculation
+
+def short_fragment_ratio(fragment_lengths: np.ndarray) -> float:
+    """
+    Fraction of fragments below SHORT_THRESHOLD (150bp).
+
+    Tumor cfDNA(ctDNA) is enriched in short fragments due to altered
+    chromatin structure. This ratio increases with tumor fraction.
+
+    Args:
+        fragment_lengths: array of fragment lengths in bp
+    
+    Returns:
+        Proportion of fragments below threshold (0.0 - 1.0)
+    """
+    # In NumPy, True is 1 and False is 0. When you take the mean of a
+    # list of ones and zeros, we get the proportion of True values.
+    return float(np.mean(fragment_lengths < SHORT_THRESHOLD))
