@@ -39,7 +39,7 @@ RF_PARAMS = {
 def prepare_features(
     df: pd.DataFrame,
     feature_columns: List[str]
-) -> Tuple[np.ndarray, np.ndarray]
+) -> Tuple[np.ndarray, np.ndarray]:
     """
     Extract feature matrix and label vector from DataFrame.
 
