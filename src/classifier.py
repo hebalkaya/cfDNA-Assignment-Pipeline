@@ -91,3 +91,93 @@ def compute_sensitivity_by_tumor_fraction(
         sensitivity_by_tf[tf] = float(sensitivity)
     
     return sensitivity_by_tf
+
+
+def train_and_evaluate(
+    df: pd.DataFrame,
+    feature_columns: List[str],
+    model_name: str,
+    cv_folds: int = 5
+) -> Dict:
+    """
+    Trains a Random Forest Classifier and evaluates with cross-validation.
+
+    Uses stratified k-fold cross-validation to ensure each fold contains
+    samples from all tumor fraction groups.
+
+    Args:
+        df: DataFrame with features and metadata
+        feature_columns: feature columns to use
+        model_name: name for this model (used in output)
+        cv_folds: number of cross-validation folds
+    
+    Returns:
+        Dictionary containing:
+            * model: trained RandomForestClassifier
+            * y_true: true labels
+            * y_prob: predicted probabilities (cancer class)
+            * auc: ROC AUC score (Area under the curve)
+            * fpr, tpr: ROC curve points (fpr: false positive rate, tpr: true positive rate)
+            * sensitivity_by_tf: sensitivity at each tumor fraction
+            * feature_importance: dict of feature name -> importance
+    """
+    X, y = prepare_features(df, feature_columns)
+
+    # Scaling features to improve RF stability
+    scaler = StandardScaler()
+    X_scaled = scaler.fit_transform(X)
+
+    # Cross-validation are obtained from out-of-fold predictions
+    cv = StratifiedKFold(n_splits = cv_folds, shuffle = True, random_state = 42)
+    model = RandomForestClassifier(**RF_PARAMS)
+
+    # Getting predicted probabilities from cross-validation
+    y_prob = cross_val_predict(
+        model, X_scaled, y,
+        cv = cv,
+        method = 'predict_proba'
+    )[:, 1] # Probability of cancer class
+
+    # Computing ROC curve
+    fpr, tpr, thresholds = roc_curve(y, y_prob)
+    auc = roc_auc_score(y, y_prob)
+
+    # Computing sensitivity at each tumor fraction
+    sensitivity_by_tf = compute_sensitivity_by_tumor_fraction(
+        df, y_prob, threshold = 0.5
+    )
+
+    # Training final model on all data for feature importance
+    model.fit(X_scaled, y)
+    feature_importance = dict(zip(feature_columns, model.feature_importances_))
+
+    print(f"\n{'='50}")
+    print(f"Model: {model_name}")
+    print(f"Features: {len(feature_columns)}")
+    print(f"Samples: {len(y)} ({y.sum()} cancer, {(~y.astype(bool)).sum()} healthy)")
+    print(f"ROC AUC: {auc:.rf}")
+    print(f"\nSensitivity by tumor fraction:")
+    for tf, sens in sensitivity_by_tf.items():
+        print(f"    TF = {tf:.4f}:  {sens:.3f}")
+    print(f"\nTop features by importance:")
+    sorted_importance = sorted(
+        feature_importance.items(),
+        key = lambda x: x[1],
+        reverse = True
+    )
+    for feat, imp in sorted_importance:
+        print(f"    {feat}:     {imp:.4f}")
+    
+   return {
+        'model_name': model_name,
+        'model': model,
+        'scaler': scaler,
+        'feature_columns': feature_columns,
+        'y_true': y,
+        'y_prob': y_prob,
+        'auc': auc,
+        'fpr': fpr,
+        'tpr': tpr,
+        'sensitivity_by_tf': sensitivity_by_tf,
+        'feature_importance': feature_importance
+    }
