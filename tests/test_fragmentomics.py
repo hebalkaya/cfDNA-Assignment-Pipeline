@@ -35,3 +35,9 @@ def test_nucleosomal_peak_ratio_healthy_greater():
     healthy_ratio = nucleosomal_peak_ratio(HEALTHY_SAMPLE.fragment_lengths)
     tumor_ratio = nucleosomal_peak_ratio(TUMOR_SAMPLE.fragment_lengths)
     assert healthy_ratio > tumor_ratio
+
+def test_short_to_long_ratio_tumor_greater():
+    """Making sure the tumor short to long ratio is greater than short to long ratio in healthy sample"""
+    healthy_ratio = short_to_long_ratio(HEALTHY_SAMPLE.fragment_lengths)
+    tumor_ratio = short_to_long_ratio(TUMOR_SAMPLE.fragment_lengths)
+    assert tumor_ratio > healthy_ratio
