@@ -21,7 +21,7 @@ See the code for biologically defined windows
 import numpy as np
 import pandas as pd
 from typing import List, Dict
-from src.simulate import SampleData
+from simulate import SampleData
 
 # Biologically defined windows (bp)
 SHORT_THRESHOLD = 150           # fragments below 150bp are "short"
@@ -177,3 +177,18 @@ def extract_fragmentomics_dataframe(samples: List[SampleData]) -> pd.DataFrame:
     return pd.DataFrame([
         extract_fragmentomics_features(sample) for sample in samples
     ])
+
+if __name__ == "__main__":
+    from simulate import simulate_dataset
+
+    TUMOR_FRACTIONS = [0.0, 0.001, 0.005, 0.01, 0.05, 0.10]
+    samples = simulate_dataset(TUMOR_FRACTIONS, n_samples_per_fraction = 30)
+    df = extract_fragmentomics_dataframe(samples)
+
+    print("Fragmentomics features by tumor fraction:")
+    feature_cols = [
+        'median_fragment_length', 'short_fragment_ratio',
+        'long_fragment_ratio', 'nucleosomal_peak_ratio',
+        'short_to_long_ratio'
+    ]
+    print(df.groupby('tumor_fraction')[feature_cols].mean().round(4))
