@@ -1,4 +1,4 @@
-"""Tests for simulate.py"""
+"""Test modules for simulate.py"""
 import numpy as np
 import pytest
 from src.simulate import *
