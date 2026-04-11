@@ -163,3 +163,17 @@ def extract_fragmentomics_features(sample: SampleData) -> Dict[str, float]:
         'tumor_fraction': sample.tumor_fraction,
         'is_cancer': sample.is_cancer
     }
+
+def extract_fragmentomics_dataframe(samples: List[SampleData]) -> pd.DataFrame:
+    """
+    Extract fragmentomics features from all samples into a DataFrame.
+
+    Args:
+        samples: list of SampleData objects
+    
+    Returns:
+        DataFrame with one row per sample, columns = features + metadata
+    """
+    return pd.DataFrame([
+        extract_fragmentomics_features(sample) for sample in samples
+    ])

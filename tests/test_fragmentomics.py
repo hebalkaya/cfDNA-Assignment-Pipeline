@@ -52,3 +52,13 @@ def test_extract_fragmentomics_features_returns_correct_keys():
         'sample_id', 'tumor_fraction', 'is_cancer'
     }
     assert set(features.keys()) == expected_keys
+
+def test_extract_dataframe_shape ():
+    """Making sure extract_fragmentomics_dataframe returns the correct shape.
+    The n(rows) of df should match total sample size
+    short_fragment_ratio, an example feature, should be one of the column names.
+    """
+    samples = simulate_dataset([0.0, 0.05], n_samples_per_fraction = 10)
+    df = extract_fragmentomics_dataframe(samples)
+    assert len(df) == 20
+    assert 'short_fragment_ratio' in df.columns
