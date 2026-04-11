@@ -160,14 +160,14 @@ def train_and_evaluate(
     model.fit(X_scaled, y)
     feature_importance = dict(zip(feature_columns, model.feature_importances_))
 
-    print(f"\n{'='*50}")
+    print(f"\n{'='*41}")
     print(f"Model: {model_name}")
     print(f"Features: {len(feature_columns)}")
     print(f"Samples: {len(y)} ({y.sum()} cancer, {(~y.astype(bool)).sum()} healthy)")
     print(f"ROC AUC: {auc:.4f}")
     print(f"\nSensitivity by tumor fraction:")
     for tf, sens in sensitivity_by_tf.items():
-        print(f"  TF={tf}: {sens:.3f}")
+        print(f"  TF={tf}:\t{sens:.3f}")
     print(f"\nTop features by importance:")
     sorted_importance = sorted(
         feature_importance.items(),
@@ -175,7 +175,7 @@ def train_and_evaluate(
         reverse = True
     )
     for feat, imp in sorted_importance:
-        print(f"  {feat}: {imp:.4f}")
+        print(f"  {feat}:  \t{imp:.4f}")
     
     return {
         'model_name': model_name,
