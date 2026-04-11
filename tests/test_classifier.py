@@ -74,4 +74,11 @@ def test_sensitivity_by_tf_keys(model1_results):
     expected_tfs = {0.01, 0.05, 0.10}
     actual_tfs = set(model1_results['sensitivity_by_tf'].keys())
     assert expected_tfs.issubset(actual_tfs)
-    
+
+def test_sensitivity_in_valid_range(model1_results):
+    """
+    Making sure all sensitivity scores are within expected range (0.0 - 1.0).
+    Printing sensitivities that are out of bounds.
+    """
+    for tf, sens in model1_results['sensitivity_by_tf'].items():
+        assert 0.0 <= sens <= 1.0, f"Sensitivity our of range at TF={tf}"
