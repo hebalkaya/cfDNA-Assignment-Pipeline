@@ -63,3 +63,8 @@ def test_auc_in_valid_range(model1_results):
     """Making sure auc is within valid range (0.0 - 1.0)"""
     assert np.all(model1_results['y_prob'] >= 0.0)
     assert np.all(model1_results['y_prob'] <= 1.0)
+
+def test_y_prob_in_valid_range(model1_results):
+    """Making sure y_prob is within valid range (0.0 - 1.0)"""
+    assert np.all(model1_results['y_prob'] >= 0.0)
+    assert np.all(model1_results['y_prob'] <= 1.0)
