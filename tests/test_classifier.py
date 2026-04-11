@@ -40,3 +40,8 @@ def test_prepare_features_shape(frag_df):
     assert X.shape[0] == len(frag_df)
     assert X.shape[1] == len(FRAGMENTOMICS_FEATURES)
     assert len(y) == len(frag_df)
+
+def test_prepare_features_binary_labels(frag_df):
+    """Making sure the binary information contains only 0 or 1 """
+    _, y = prepare_features(frag_df, FRAGMENTOMICS_FEATURES)
+    assert set(np.unique(y)).issubset({0, 1})
