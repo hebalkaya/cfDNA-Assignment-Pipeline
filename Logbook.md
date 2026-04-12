@@ -123,6 +123,6 @@ tumor_fraction
 ```
 - Much better. The signal is now visible and meaningful.
 - Hypermethylated_fraction tracks tumour fraction almost perfectly. At TF = 0.1 exactly 10% of CpGs are hypermethylated.
-- Bimodality_score jumps dramatically from -0.099 at TF = 0 to 0.29 at TF=0.001. **This is our most discriminative feature** at low tumour fractions. Even at 0.1% tumour fraction, the bimodality score is already 3x the healthy baseline.
+- Bimodality_score jumps dramatically from -0.099 at TF = 0 to 0.29 at TF=0.001. **This is the most discriminative feature** at low tumour fractions. Even at 0.1% tumour fraction, the bimodality score is already 3x the healthy baseline.
 - Mean_methylation moves but slowly (from 0.099 to 0.175 at 10%). Useful but not the strongest feature.
 - **Consensus:** Methylation features are most powerful at detecting the presence of any tumour signal (bimodality_score is very sensitive at low TF), while fragmentomics features are more reliable at higher tumour fractions. Combined, they should be complementary.
