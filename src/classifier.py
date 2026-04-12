@@ -221,6 +221,12 @@ if __name__ == "__main__":
     print("Extracting features ...")
     frag_df = extract_fragmentomics_dataframe(samples)
     meth_df = extract_methylation_dataframe(samples)
+    # Merge into one DataFrame for combined model
+    combined_df = frag_df.merge(
+        meth_df.drop(columns=['sample_id', 'tumor_fraction', 'is_cancer']),
+        left_index=True,
+        right_index=True
+    )
 
     print("\n" + "="*41)
 
@@ -240,23 +246,31 @@ if __name__ == "__main__":
         model_name = "Model 2 - Methylation only"
     )
 
+    # Model 3 — Combined
+    print("Training Model 3: Fragmentomics & Methylation combined ...")
+    results_3 = train_and_evaluate(
+        combined_df,
+        COMBINED_FEATURES,
+        model_name="Model 3 — Combined"
+    )
+
     # Summary comparison
     print("\n" + "="*41)
     print("SUMMARY COMPARISON")
     print("="*41)
     print(f"{'Model' :<35} {'AUC': >6}")
     print("="*41)
-    for r in [results_1, results_2]:
+    for r in [results_1, results_2, results_3]:
         print(f"{r['model_name']:<35} {r['auc']:>6.4f}")
     
     print("\nSensitivity comparison by tumor fraction:")
     tfs = sorted(results_1['sensitivity_by_tf'].keys())
-    header = f"{'TF':<10}" + "".join(f"{'M'+str(i+1):>10}" for i in range(2))
+    header = f"{'TF':<10}" + "".join(f"{'M'+str(i+1):>10}" for i in range(3))
     print(header)
     print("-" * 41)
     for tf in tfs:
         row = f"{tf:<10.4f}"
-        for r in [results_1, results_2]:
+        for r in [results_1, results_2, results_3]:
             sens = r['sensitivity_by_tf'].get(tf, float('nan'))
             row += f"{sens:>10.3f}"
         print(row)
