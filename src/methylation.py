@@ -144,3 +144,18 @@ def extract_methylation_features(sample: SampleData) -> Dict[str, float]:
         'tumor_fraction': sample.tumor_fraction,
         'is_cancer': sample.is_cancer
     }
+
+
+def extract_methylation_dataframe(samples: List[SampleData]) -> pd.DataFrame:
+    """
+    Extract methylation features from all samples into a DataFrame
+
+    Args:
+        samples: list of SampleData objects
+    
+    Returns:
+        DataFrame with one row per sample, columns = features + metadaata
+    """
+    return pd.DataFrame([
+        extract_methylation_features(sample) for sample in samples 
+    ])
