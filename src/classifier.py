@@ -208,6 +208,7 @@ def train_and_evaluate(
 if __name__ == "__main__":
     from src.simulate import simulate_dataset
     from src.fragmentomics import extract_fragmentomics_dataframe
+    from src.methylation import extract_methylation_dataframe
 
     print("Generating dataset ...")
     TUMOR_FRACTIONS = [0.0, 0.001, 0.005, 0.01, 0.05, 0.10]
@@ -217,14 +218,45 @@ if __name__ == "__main__":
         seed = 42
     )
 
-    print("Extracting fragmentomics features ...")
+    print("Extracting features ...")
     frag_df = extract_fragmentomics_dataframe(samples)
+    meth_df = extract_methylation_dataframe(samples)
 
+    print("\n" + "="*41)
+
+    # Model 1 - Fragmentomics only
     print("Training Model 1: Fragmentomics only ...")
-    results = train_and_evaluate(
+    results_1 = train_and_evaluate(
         frag_df,
         FRAGMENTOMICS_FEATURES,
-        model_name = "Model 1 - Fragmentomics Only"
+        model_name = "Model 1 - Fragmentomics only"
     )
 
-    print(f"\nFinal AUC: {results['auc']:4f}")
+    # Model 2 - Fragmentomics only
+    print("Training Model 2: Methylation only ...")
+    results_2 = train_and_evaluate(
+        meth_df,
+        METHYLATION_FEATURES,
+        model_name = "Model 2 - Methylation only"
+    )
+
+    # Summary comparison
+    print("\n" + "="*41)
+    print("SUMMARY COMPARISON")
+    print("="*41)
+    print(f"{'Model' :<35} {'AUC': >6}")
+    print("="*41)
+    for r in [results_1, results_2]:
+        print(f"{r['model_name']:<35} {r['auc']:>6.4f}")
+    
+    print("\nSensitivity comparison by tumor fraction:")
+    tfs = sorted(results_1['sensitivity_by_tf'].keys())
+    header = f"{'TF':<10}" + "".join(f"{'M'+str(i+1):>10}" for i in range(2))
+    print(header)
+    print("-" * 41)
+    for tf in tfs:
+        row = f"{tf:<10.4f}"
+        for r in [results_1, results_2]:
+            sens = r['sensitivity_by_tf'].get(tf, float('nan'))
+            row += f"{sens:>10.3f}"
+        print(row)
