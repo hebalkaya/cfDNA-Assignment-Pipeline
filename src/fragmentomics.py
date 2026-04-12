@@ -11,8 +11,8 @@ Biological basis:
     signal detectable from sequencing data.
 
 Source papers:
-    * Underhill et al. 2016, PLOS (Mouse cfDNA & ctDNA fragment lengths) (Fragment Length of Circulating Tumor DNA)
-    * Snyder et al. 2016, Cell (cfDNA fragment lengths) (Cell-free DNA Comprises an In Vivo Nucleosome Footprint that Informs Its Tissues-Of-Origin)
+    * Underhill et al., 2016, PLOS (Mouse cfDNA & ctDNA fragment lengths) (Fragment Length of Circulating Tumor DNA)
+    * Snyder et al., 2016, Cell (cfDNA fragment lengths) (Cell-free DNA Comprises an In Vivo Nucleosome Footprint that Informs Its Tissues-Of-Origin)
     * Cristiano et al., Nature 2019 (Genome-wide cell-free DNA fragmentation in patients with cancer)
 
 See the code for biologically defined windows
