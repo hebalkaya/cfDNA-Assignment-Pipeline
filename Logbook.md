@@ -245,4 +245,100 @@ TF                M1        M2        M3
 - M3 (combined) outperforms M2 only slightly for TF = 0.0010.
 - M2 and M3 perform equally for TF 0.0050 and above.
 - M3 does not significantly improve the classification sensitivity
-- **Could try Random Forest + Logistic Regression classifier**
+
+**N_CPG_SITES increased to 1000 # was 500**
+```
+Generating dataset ...
+Extracting features ...
+
+=========================================
+Training Model 1: Fragmentomics only ...
+
+=========================================
+Model: Model 1 - Fragmentomics only
+Features: 6
+Samples: 1800 (1500 cancer, 300 healthy)
+ROC AUC: 0.7264
+
+Sensitivity by tumor fraction:
+  TF=0.001:     0.357
+  TF=0.005:     0.403
+  TF=0.01:      0.527
+  TF=0.05:      0.930
+  TF=0.1:       0.997
+
+Top features by importance:
+  fragment_length_entropy:      0.3075
+  short_fragment_ratio:         0.2498
+  short_to_long_ratio:          0.2408
+  nucleosomal_peak_ratio:       0.0989
+  long_fragment_ratio:          0.0686
+  median_fragment_length:       0.0345
+Training Model 2: Methylation only ...
+
+=========================================
+Model: Model 2 - Methylation only
+Features: 5
+Samples: 1800 (1500 cancer, 300 healthy)
+ROC AUC: 0.9637
+
+Sensitivity by tumor fraction:
+  TF=0.001:     0.680
+  TF=0.005:     0.990
+  TF=0.01:      1.000
+  TF=0.05:      1.000
+  TF=0.1:       1.000
+
+Top features by importance:
+  bimodality_score:     0.4412
+  methylation_variance:         0.2784
+  hypermethylated_fraction:     0.1693
+  mean_methylation:     0.1046
+  methylation_entropy:          0.0064
+Training Model 3: Fragmentomics & Methylation combined ...
+
+=========================================
+Model: Model 3 — Combined
+Features: 11
+Samples: 1800 (1500 cancer, 300 healthy)
+ROC AUC: 0.9640
+
+Sensitivity by tumor fraction:
+  TF=0.001:     0.673
+  TF=0.005:     0.990
+  TF=0.01:      1.000
+  TF=0.05:      1.000
+  TF=0.1:       1.000
+
+Top features by importance:
+  bimodality_score:     0.3523
+  methylation_variance:         0.2438
+  hypermethylated_fraction:     0.2377
+  mean_methylation:     0.0933
+  methylation_entropy:          0.0464
+  short_fragment_ratio:         0.0078
+  short_to_long_ratio:          0.0071
+  fragment_length_entropy:      0.0064
+  nucleosomal_peak_ratio:       0.0025
+  long_fragment_ratio:          0.0020
+  median_fragment_length:       0.0005
+
+=========================================
+SUMMARY COMPARISON
+=========================================
+Model                                  AUC
+=========================================
+Model 1 - Fragmentomics only        0.7264
+Model 2 - Methylation only          0.9637
+Model 3 — Combined                  0.9640
+
+Sensitivity comparison by tumor fraction:
+TF                M1        M2        M3
+-----------------------------------------
+0.0010         0.357     0.680     0.673
+0.0050         0.403     0.990     0.990
+0.0100         0.527     1.000     1.000
+0.0500         0.930     1.000     1.000
+0.1000         0.997     1.000     1.000
+```
+- Significant improvement over previous results. M3 still doesn't significantly differ from M2.
