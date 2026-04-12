@@ -73,3 +73,19 @@ def methylation_entropy(methylation_values: np.ndarray) -> float:
     counts, _ = np.histogram(methylation_values, bins = ENTROPY_BINS, range = (0,1))
     probs = (counts + 1e-10) / (counts.sum() + ENTROPY_BINS * 1e-10)
     return float(-np.sum(probs * np.log(probs)))
+
+def methylation_variance(methylation_values: np:ndarray) -> float:
+    """
+    Variance of methylation values across CpG sites.
+
+    Tumor methylation is more heterogeneous (higher variance).
+    Complements mean methylation as a distributional feature.
+
+    Args:
+        methylation_values: array of methylation values (0.0 - 1.0)
+    
+    Returns:
+        Variance of methylation values
+    """
+    return float(np.var(methylation_values))
+
