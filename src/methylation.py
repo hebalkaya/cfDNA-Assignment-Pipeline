@@ -159,3 +159,18 @@ def extract_methylation_dataframe(samples: List[SampleData]) -> pd.DataFrame:
     return pd.DataFrame([
         extract_methylation_features(sample) for sample in samples 
     ])
+
+
+if __name__ == "__main__":
+    from src.simulate import simulate_dataset
+
+    TUMOR_FRACTIONS = [0.0, 0.001, 0.005, 0.01, 0.05, 0.10]
+    samples = simulate_dataset(TUMOR_FRACTIONS, n_samples_per_fraction = 30)
+    df = extract_methylation_dataframe(samples)
+
+    print("Methylation features by tumor fraction:")
+    feature_cols = [
+        'mean_methylation', 'hypermethylated_fraction',
+        'methylation_variance', 'bimodality_score'
+    ]
+    print(df.groupby('tumor_fraction')[feature_cols].mean().round(4))
