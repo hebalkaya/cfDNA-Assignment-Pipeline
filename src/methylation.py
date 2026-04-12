@@ -74,7 +74,7 @@ def methylation_entropy(methylation_values: np.ndarray) -> float:
     probs = (counts + 1e-10) / (counts.sum() + ENTROPY_BINS * 1e-10)
     return float(-np.sum(probs * np.log(probs)))
 
-def methylation_variance(methylation_values: np:ndarray) -> float:
+def methylation_variance(methylation_values: np.ndarray) -> float:
     """
     Variance of methylation values across CpG sites.
 

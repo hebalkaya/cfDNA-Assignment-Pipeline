@@ -27,3 +27,8 @@ def test_entropy_is_positive():
     """Making sure entropy nats is positive (> 0.0)"""
     entropy = methylation_entropy(HEALTHY_SAMPLE.methylation_values)
     assert entropy > 0.0
+
+def test_variance_is_nonnegative():
+    """Making sure variange is non negative( == 0 or > than 0)"""
+    var = methylation_variance(HEALTHY_SAMPLE.methylation_values)
+    assert var >= 0.0
