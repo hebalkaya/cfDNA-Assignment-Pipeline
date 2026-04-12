@@ -126,3 +126,68 @@ tumor_fraction
 - Bimodality_score jumps dramatically from -0.099 at TF = 0 to 0.29 at TF=0.001. **This is the most discriminative feature** at low tumour fractions. Even at 0.1% tumour fraction, the bimodality score is already 3x the healthy baseline.
 - Mean_methylation moves but slowly (from 0.099 to 0.175 at 10%). Useful but not the strongest feature.
 - **Consensus:** Methylation features are most powerful at detecting the presence of any tumour signal (bimodality_score is very sensitive at low TF), while fragmentomics features are more reliable at higher tumour fractions. Combined, they should be complementary.
+
+#### Model 1 (Fragmentomics) vs Model 2 (Methylation) Results
+```
+=========================================
+Training Model 1: Fragmentomics only ...
+
+=========================================
+Model: Model 1 - Fragmentomics only
+Features: 6
+Samples: 1800 (1500 cancer, 300 healthy)
+ROC AUC: 0.7584
+
+Sensitivity by tumor fraction:
+  TF=0.001:     0.387
+  TF=0.005:     0.497
+  TF=0.01:      0.597
+  TF=0.05:      0.947
+  TF=0.1:       1.000
+
+Top features by importance:
+  fragment_length_entropy:      0.3439
+  short_fragment_ratio:         0.2625
+  short_to_long_ratio:          0.1945
+  nucleosomal_peak_ratio:       0.0932
+  long_fragment_ratio:          0.0721
+  median_fragment_length:       0.0339
+Training Model 2: Methylation only ...
+
+=========================================
+Model: Model 2 - Methylation only
+Features: 5
+Samples: 1800 (1500 cancer, 300 healthy)
+ROC AUC: 0.9307
+
+Sensitivity by tumor fraction:
+  TF=0.001:     0.393
+  TF=0.005:     0.940
+  TF=0.01:      0.987
+  TF=0.05:      1.000
+  TF=0.1:       1.000
+
+Top features by importance:
+  bimodality_score:             0.3844
+  methylation_variance:         0.3356
+  hypermethylated_fraction:     0.1568
+  mean_methylation:             0.1115
+  methylation_entropy:          0.0116
+
+=========================================
+SUMMARY COMPARISON
+=========================================
+Model                                  AUC
+=========================================
+Model 1 - Fragmentomics only        0.7584
+Model 2 - Methylation only          0.9307
+
+Sensitivity comparison by tumor fraction:
+TF                M1        M2
+-----------------------------------------
+0.0010         0.387     0.393
+0.0050         0.497     0.940
+0.0100         0.597     0.987
+0.0500         0.947     1.000
+0.1000         1.000     1.000
+```
