@@ -245,4 +245,4 @@ TF                M1        M2        M3
 - M3 (combined) outperforms M2 only slightly for TF = 0.0010.
 - M2 and M3 perform equally for TF 0.0050 and above.
 - M3 does not significantly improve the classification sensitivity
-**- Could try Random Forest + Logistic Regression classifier**
+- **Could try Random Forest + Logistic Regression classifier**
