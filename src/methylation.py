@@ -92,3 +92,29 @@ def methylation_variance(methylation_values: np.ndarray) -> float:
         Variance of methylation values
     """
     return float(np.var(methylation_values))
+
+def bimodality_score(methylation_values: np.ndarray) -> float:
+    """
+    Score capturing bimodality of methylation distribution.
+
+    Healthy samples: unimodal distribution around low methylation.
+    Tumor samples: second peak appears at high methylation values,
+    creating a bimodal distribution.
+
+    Computed as: mean of high bin (>0.6) - mean of low bin (<0.3).
+    Larger values indicate stronger bimodality / more tumor signal.
+
+    Args:
+        methylation_values: array of methylation values (0.0 - 1.0)
+
+    Returns:
+        Bimodality score (higher = more cancer-like)
+    """
+    high_peak = methylation_values[methylation_values > 0.6]
+    low_peak = methylation_values[methylation_values < 0.3]
+
+    mean_high = np.mean(high_peak) if len(high_peak) 0 else 0.0
+    mean_low = np.mean(low_peak) if len(low_peak) > 0 else 0.0
+
+    return float(mean_high - mean_low)
+    
