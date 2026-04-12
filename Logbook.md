@@ -191,3 +191,5 @@ TF                M1        M2
 0.0500         0.947     1.000
 0.1000         1.000     1.000
 ```
+- Both models still not performing well for TF = 0.0010
+- Model 2 - Methylation only significantly outperforms Model 1 - Fragmentomics only from fractions 0.0050 and on 
