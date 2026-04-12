@@ -17,3 +17,7 @@ def test_hypermethylated_fraction_in_range():
     val = hypermethylated_fraction(HEALTHY_SAMPLE.methylation_values)
     assert 0.0 <= val <= 1.0
 
+def test_entropy_is_positive():
+    """Making sure entropy nats is positive (> 0.0)"""
+    entropy = methylation_entropy(HEALTHY_SAMPLE.methylation_values)
+    assert entropy > 0.0

@@ -71,5 +71,5 @@ def methylation_entropy(methylation_values: np.ndarray) -> float:
         Shannon entropy (in natural algorithms/nats)
     """
     counts, _ = np.histogram(methylation_values, bins = ENTROPY_BINS, range = (0,1))
-    probs = (counts + 1e-10) / (counts.sum() + ENTROPY_BINS * 1e=10)
+    probs = (counts + 1e-10) / (counts.sum() + ENTROPY_BINS * 1e-10)
     return float(-np.sum(probs * np.log(probs)))
