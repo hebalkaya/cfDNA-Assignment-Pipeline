@@ -20,7 +20,7 @@ Methylation is an epigenetic process. Meaning it modifies how genes behave witho
 Think of it like a set of sticky notes on a book: the words (DNA sequence) don't change, but the notes tell the reader which chapters to pay attention to and which to skip. Methylation generally silences gene expression. Methylated genes tend to be switched off.
 In healthy cells, methylation patterns are tightly regulated and predictable. They vary by tissue type and serve important roles in development, cell identity, and gene regulation.
 
-[!Metylation](https://blog.lgcclinicaldiagnostics.com/hs-fs/hubfs/0.%20Blogs/NGS%20Blog/DNA%20Methyltransferases.png)
+![Metylation](https://blog.lgcclinicaldiagnostics.com/hs-fs/hubfs/0.%20Blogs/NGS%20Blog/DNA%20Methyltransferases.png)
 
 ### Hypermethylation & What Goes Wrong in Cancer
 Hypermethylation refers to an excess of methylation at a region that is normally unmethylated or lightly methylated. In cancer, this frequently occurs at the promoter regions of tumor suppressor genes. The very genes whose job is to slow or stop uncontrolled cell growth.
