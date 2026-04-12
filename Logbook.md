@@ -111,4 +111,13 @@ TUMOUR_METHYLATION_STD = 0.08     # was 0.12 — tighter
 ```
 **Updated results**
 ```
+ethylation features by tumor fraction:
+                mean_methylation  hypermethylated_fraction  methylation_variance  bimodality_score
+tumor_fraction                                                                                    
+0.000                     0.0994                    0.0000                0.0009           -0.0994
+0.001                     0.1007                    0.0014                0.0017            0.2937
+0.005                     0.1042                    0.0056                0.0040            0.6403
+0.010                     0.1075                    0.0102                0.0066            0.7522
+0.050                     0.1389                    0.0525                0.0285            0.7423
+0.100                     0.1751                    0.1010                0.0522            0.7484
 ```
