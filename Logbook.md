@@ -99,7 +99,7 @@ tumor_fraction
 0.100                     0.2067                       0.0                0.0022           -0.2043
 ```
 - The methylation signal is too weak. At 10% tumour fraction, mean methylation **only moves from 0.15 to 0.21**. Hypermethylated fraction is 0.0 across the board, the signal is essentially invisible.
-- The methylation mixing formula is correct but the parameters are too conservative
+- The methylation mixing formula is correct but the parameters are too conservative.
 - At 10% tumour fraction we are getting 90% healthy × 0.15 + 10% tumour × 0.72 = 0.207. Mathematically correct but biologically the tumour methylation signal needs to be stronger and more distinct to be useful as a classifier feature.
 ```
 # Methylation parameters
