@@ -46,3 +46,13 @@ def test_bimodality_score_tumor_greater():
     tumor = bimodality_score(TUMOR_SAMPLE.methylation_values)
     assert tumor > healthy
 
+
+def test_extract_features_correct_keys():
+    """Making sure extract_features returns expected keys in expected order"""
+    features = extract_methylation_features(HEALTHY_SAMPLE)
+    expected_keys = {
+        'mean_methylation', 'hypermethylated_fraction',
+        'methylation_entropy', 'methylation_variance',
+        'bimodality_score', 'sample_id', 'tumor_fraction', 'is_cancer'
+    }
+    assert set(features.keys()) == expected_keys

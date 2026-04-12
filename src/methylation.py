@@ -136,8 +136,8 @@ def extract_methylation_features(sample: SampleData) -> Dict[str, float]:
     return {
         'mean_methylation': mean_methylation(mv),
         'hypermethylated_fraction': hypermethylated_fraction(mv),
-        'methylation_entropy': methylation_entropy(mv)
-        'methylation_variance': methylation_variance(mv)
+        'methylation_entropy': methylation_entropy(mv),
+        'methylation_variance': methylation_variance(mv),
         'bimodality_score': bimodality_score(mv),
         # Metadata
         'sample_id': sample.sample_id,
