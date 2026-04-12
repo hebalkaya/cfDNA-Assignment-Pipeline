@@ -109,9 +109,9 @@ HEALTHY_METHYLATION_STD = 0.03    # was 0.05 — tighter
 TUMOUR_METHYLATION_MEAN = 0.85    # was 0.72 — make tumour higher
 TUMOUR_METHYLATION_STD = 0.08     # was 0.12 — tighter
 ```
-**Updated results**
+**Updated results** (No linear mixing)
 ```
-ethylation features by tumor fraction:
+methylation features by tumor fraction:
                 mean_methylation  hypermethylated_fraction  methylation_variance  bimodality_score
 tumor_fraction                                                                                    
 0.000                     0.0994                    0.0000                0.0009           -0.0994
