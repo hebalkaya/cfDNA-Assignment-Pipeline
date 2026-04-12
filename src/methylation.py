@@ -19,9 +19,11 @@ import pandas as pd
 from typing import List, Dict
 from src.simulate import SampleData
 
+
 # Methylation thresholds
 HYPERMETHYLATION_THRESHOLD = 0.5    # CpGs above this are "hypermethylated"
 ENTROPY_BINS = 20                   # bins for entropy calculation
+
 
 def mean_methylation(methylation_values: np.ndarray) -> float:
     """
@@ -55,6 +57,7 @@ def hypermethylated_fraction(methylation_values: np.ndarray) -> float:
     """
     return float(np.mean(methylation_values > HYPERMETHYLATION_THRESHOLD))
 
+
 def methylation_entropy(methylation_values: np.ndarray) -> float:
     """
     Shannon entropy of the methylation value distribution.
@@ -74,6 +77,7 @@ def methylation_entropy(methylation_values: np.ndarray) -> float:
     probs = (counts + 1e-10) / (counts.sum() + ENTROPY_BINS * 1e-10)
     return float(-np.sum(probs * np.log(probs)))
 
+
 def methylation_variance(methylation_values: np.ndarray) -> float:
     """
     Variance of methylation values across CpG sites.
@@ -88,4 +92,3 @@ def methylation_variance(methylation_values: np.ndarray) -> float:
         Variance of methylation values
     """
     return float(np.var(methylation_values))
-

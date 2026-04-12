@@ -26,12 +26,14 @@ TUMOR_FRAGMENT_STDEV = 30
 MIN_FRAGMENT_LENGTH = 50
 MAX_FRAGMENT_LENGTH = 400
 
+
 # Methylation parameters
 N_CPG_SITES = 500
 HEALTHY_METHYLATION_MEAN = 0.15
 HEALTHY_METHYLATION_STDEV = 0.05
 TUMOR_METHYLATION_MEAN = 0.72
 TUMOR_METHYLATION_STDEV = 0.12
+
 
 @dataclass
 class SampleData:
@@ -41,6 +43,7 @@ class SampleData:
     fragment_lengths: np.ndarray
     methylation_values: np.ndarray
     is_cancer: bool
+
 
 def simulate_fragment_lengths(
     n_fragments: int,
@@ -69,6 +72,7 @@ def simulate_fragment_lengths(
     all_fragments = np.concatenate([healthy_fragments, tumor_fragments])
     return np.clip(all_fragments, MIN_FRAGMENT_LENGTH, MAX_FRAGMENT_LENGTH).astype(int) # Making sure to keep the fragments that are within the proper range 
 
+
 def simulate_methylation(
     tumor_fraction: float,
     rng: np.random.Generator
@@ -91,6 +95,7 @@ def simulate_methylation(
 
     mixed = (1 - tumor_fraction) * healthy_methylation + tumor_fraction * tumor_methylation
     return np.clip(mixed, 0.0, 1.0)
+
 
 def simulate_dataset(
     tumor_fractions: List[float],
@@ -125,6 +130,7 @@ def simulate_dataset(
             ))
     return samples
 
+
 def samples_to_dataframe(samples: List[SampleData]
 ) -> pd.DataFrame:
     """
@@ -140,12 +146,13 @@ def samples_to_dataframe(samples: List[SampleData]
         'mean_methylation': round(float(np.mean(sample.methylation_values)), 4)
     } for sample in samples])
 
-    if __name__ == "__main__":
-        TUMOR_FRACTIONS = [0.0, 0.001, 0.005, 0.01, 0.05, 0.10]
-        samples = simulate_dataset(TUMOR_FRACTIONS, n_samples_per_fraction = 20)
-        df = sample_to_dataframe(samples)
-        print(df.groupby('tumor_fraction').agg({
-            'mean_fragment_length': 'mean',
-            'mean_methylation': 'mean'
+
+if __name__ == "__main__":
+    TUMOR_FRACTIONS = [0.0, 0.001, 0.005, 0.01, 0.05, 0.10]
+    samples = simulate_dataset(TUMOR_FRACTIONS, n_samples_per_fraction = 20)
+    df = sample_to_dataframe(samples)
+    print(df.groupby('tumor_fraction').agg({
+        'mean_fragment_length': 'mean',
+        'mean_methylation': 'mean'
         }).round(4))
-        print(f"\nTotal samples: {len(samples)}")
+    print(f"\nTotal samples: {len(samples)}")

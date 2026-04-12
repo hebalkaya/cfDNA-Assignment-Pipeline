@@ -25,6 +25,7 @@ from sklearn.metrics import (
     confusion_matrix
 )
 
+
 # Feature column definitions
 FRAGMENTOMICS_FEATURES = [
     'median_fragment_length',
@@ -45,6 +46,7 @@ RF_PARAMS = {
     'class_weight': 'balanced'
 }
 
+
 def prepare_features(
     df: pd.DataFrame,
     feature_columns: List[str]
@@ -63,6 +65,7 @@ def prepare_features(
     X = df[feature_columns].values.astype(float)
     y = df['is_cancer'].astype(int).values
     return X, y
+
 
 def compute_sensitivity_by_tumor_fraction(
     df: pd.DataFrame,
@@ -101,7 +104,7 @@ def compute_sensitivity_by_tumor_fraction(
     
     return sensitivity_by_tf
 
-
+    
 def train_and_evaluate(
     df: pd.DataFrame,
     feature_columns: List[str],
@@ -190,6 +193,7 @@ def train_and_evaluate(
         'sensitivity_by_tf': sensitivity_by_tf,
         'feature_importance': feature_importance
     }
+
 
 if __name__ == "__main__":
     from src.simulate import simulate_dataset

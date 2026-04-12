@@ -23,6 +23,7 @@ import pandas as pd
 from typing import List, Dict
 from src.simulate import SampleData
 
+
 # Biologically defined windows (bp)
 SHORT_THRESHOLD = 150           # fragments below 150bp are "short"
 LONG_THRESHOLD = 180            # fragments above 180bp are "long"
@@ -31,6 +32,7 @@ NUCLEOSOMAL_HIGH = 180          # nucelosomal window upper boundary
 SUB_NUCLEOSOMAL_LOW = 120       # sub-nucleosomal window lower boundary
 SUB_NUCLEOSOMAL_HIGH = 150      # sub-nucleosomal window upper boundary
 ENTROPY_BINS = 50               # bins for entropy calculation
+
 
 def short_fragment_ratio(fragment_lengths: np.ndarray) -> float:
     """
@@ -48,6 +50,7 @@ def short_fragment_ratio(fragment_lengths: np.ndarray) -> float:
     # In NumPy, True is 1 and False is 0. When you take the mean of a
     # list of ones and zeros, we get the proportion of True values.
     return float(np.mean(fragment_lengths < SHORT_THRESHOLD))
+
 
 def long_fragment_ratio(fragment_lengths: np.ndarray) -> float:
     """
@@ -67,6 +70,7 @@ def long_fragment_ratio(fragment_lengths: np.ndarray) -> float:
     simultaneously. This approach was taken to maintain modularity.
     """
     return float(np.mean(fragment_lengths > LONG_THRESHOLD))
+
 
 def fragment_length_entropy(fragment_lengths: np.ndarray) -> float:
     """
@@ -88,6 +92,7 @@ def fragment_length_entropy(fragment_lengths: np.ndarray) -> float:
     # Adding a small pseudocount to avoid log(0)
     probs = (counts + 1e-10) / (counts.sum() + ENTROPY_BINS * 1e-10)
     return float(-np.sum(probs * np.log(probs)))
+
 
 def nucleosomal_peak_ratio(fragment_lengths: np.ndarray) -> float:
     """
@@ -116,6 +121,7 @@ def nucleosomal_peak_ratio(fragment_lengths: np.ndarray) -> float:
     if sub_nucleosomal == 0:
         return float(nucleosomal)
     return float(nucleosomal/sub_nucleosomal)
+
 
 def short_to_long_ratio(fragment_lengths: np.ndarray) -> float:
     """
@@ -164,6 +170,7 @@ def extract_fragmentomics_features(sample: SampleData) -> Dict[str, float]:
         'is_cancer': sample.is_cancer
     }
 
+
 def extract_fragmentomics_dataframe(samples: List[SampleData]) -> pd.DataFrame:
     """
     Extract fragmentomics features from all samples into a DataFrame.
@@ -177,6 +184,7 @@ def extract_fragmentomics_dataframe(samples: List[SampleData]) -> pd.DataFrame:
     return pd.DataFrame([
         extract_fragmentomics_features(sample) for sample in samples
     ])
+
 
 if __name__ == "__main__":
     from src.simulate import simulate_dataset
