@@ -44,6 +44,8 @@ METHYLATION_FEATURES = [
     'bimodality_score'
 ]
 
+COMBINED_FEATURES = FRAGMENTOMICS_FEATURES + METHYLATION_FEATURES
+
 # Random Forest hyperparameters
 RF_PARAMS = {
     'n_estimators': 200,
