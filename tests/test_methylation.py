@@ -56,3 +56,12 @@ def test_extract_features_correct_keys():
         'bimodality_score', 'sample_id', 'tumor_fraction', 'is_cancer'
     }
     assert set(features.keys()) == expected_keys
+
+
+def test_extract_dataframe_shape():
+    """Making sure extract_dataframe returns the expected number of samples (in rows)
+    and mean_methylation is found among columns as success indicator"""
+    samples = simulate_dataset([0.0, 0.05], n_samples_per_fraction = 10)
+    df = extract_methylation_dataframe(samples)
+    assert len(df) == 20
+    assert 'mean_methylation' in df.columns
