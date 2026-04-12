@@ -11,3 +11,9 @@ def test_mean_methylation_in_range():
     """Making sure methylation is within the expected range (0.0 - 1.0)"""
     val = mean_methylation(HEALTHY_SAMPLE.methylation_values)
     assert 0.0 <= val <= 1.0
+
+def test_hypermethylated_fraction_in_range():
+    """Making sure hypermethylation is within the expected range (0.0 - 1.0)"""
+    val = hypermethylated_fraction(HEALTHY_SAMPLE.methylation_values)
+    assert 0.0 <= val <= 1.0
+
