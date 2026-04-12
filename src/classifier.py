@@ -36,6 +36,14 @@ FRAGMENTOMICS_FEATURES = [
     'short_to_long_ratio'
 ]
 
+METHYLATION_FEATURES = [
+    'mean_methylation',
+    'hypermethylated_fraction',
+    'methylation_entropy',
+    'methylation_variance',
+    'bimodality_score'
+]
+
 # Random Forest hyperparameters
 RF_PARAMS = {
     'n_estimators': 200,
