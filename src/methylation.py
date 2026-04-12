@@ -37,3 +37,20 @@ def mean_methylation(methylation_values: np.ndarray) -> float:
         Mean metylation (0.0 - 1.0)
     """
     return float(np.mean(methylation_values))
+
+
+def hypermethylated_fraction(methylation_values: np.ndarray) -> float:
+    """
+    Fraction of CpG sites with methylation above threshold (0.5).
+
+    Direct measure of hypermethylation burden.
+    Key feature: Healthy cfDNA has very few hypermethylated CpGs
+    at cancer-specific loci. Tumor cfDNA/ctDNA has many.
+
+    Args:
+        methylation_values: array of methylation values (0.0 - 1.0)
+    
+    Returns:
+        Proportion of hypermethylated CpGs (0.0 - 1.0)
+    """
+    return float(np.mean(methylation_values > HYPERMETHYLATION_THRESHOLD))
