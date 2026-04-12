@@ -79,3 +79,36 @@ Top features by importance:
 
 Final AUC: 0.750460
 ```
+### Sunday, April 12
+- [X] Initiate src/methylation.py
+- [X] Initiate tests/test_methylation.py
+- [X] Complete src/methylation.py
+- [X] Complete tests/test_methylation.py
+- [X] Complete initial methylation run
+
+#### Changin Methylation parameters in ```methylation.py```
+**Initial results**
+```
+                mean_methylation  hypermethylated_fraction  methylation_variance  bimodality_score
+tumor_fraction                                                                                    
+0.000                     0.1500                       0.0                0.0025           -0.1498
+0.001                     0.1500                       0.0                0.0025           -0.1497
+0.005                     0.1531                       0.0                0.0025           -0.1528
+0.010                     0.1559                       0.0                0.0025           -0.1556
+0.050                     0.1784                       0.0                0.0023           -0.1776
+0.100                     0.2067                       0.0                0.0022           -0.2043
+```
+- The methylation signal is too weak. At 10% tumour fraction, mean methylation **only moves from 0.15 to 0.21**. Hypermethylated fraction is 0.0 across the board, the signal is essentially invisible.
+- The methylation mixing formula is correct but the parameters are too conservative
+- At 10% tumour fraction we are getting 90% healthy × 0.15 + 10% tumour × 0.72 = 0.207. Mathematically correct but biologically the tumour methylation signal needs to be stronger and more distinct to be useful as a classifier feature.
+```
+# Methylation parameters
+N_CPG_SITES = 500
+HEALTHY_METHYLATION_MEAN = 0.10   # was 0.15 — make healthy lower
+HEALTHY_METHYLATION_STD = 0.03    # was 0.05 — tighter
+TUMOUR_METHYLATION_MEAN = 0.85    # was 0.72 — make tumour higher
+TUMOUR_METHYLATION_STD = 0.08     # was 0.12 — tighter
+```
+**Updated results**
+```
+```
