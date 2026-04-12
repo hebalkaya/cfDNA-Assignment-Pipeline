@@ -65,3 +65,17 @@ def test_extract_dataframe_shape():
     df = extract_methylation_dataframe(samples)
     assert len(df) == 20
     assert 'mean_methylation' in df.columns
+
+
+def test_all_healthy_samples_low_methylation():
+    """Making sure all healthy samples have mean methylation well below 0.5"""
+    samples = simulate_dataset([0.0], n_samples_per_fraction = 50, seed = 99)
+    df = extract_methylation_dataframe(samples)
+    assert df['mean_methylation'].mean() < 0.3
+
+
+def test_all_tumor_samples_high_methylation():
+    """Making sure all tumor samples have mean methylation well above 0.5"""
+    samples = simulate_dataset([1.0], n_samples_per_fraction = 50, seed = 99)
+    df = extract_methylation_dataframe(samples)
+    assert df['mean_methylation'].mean() > 0.5
