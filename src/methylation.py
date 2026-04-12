@@ -54,3 +54,22 @@ def hypermethylated_fraction(methylation_values: np.ndarray) -> float:
         Proportion of hypermethylated CpGs (0.0 - 1.0)
     """
     return float(np.mean(methylation_values > HYPERMETHYLATION_THRESHOLD))
+
+def methylation_entropy(methylation_values: np.ndarray) -> float:
+    """
+    Shannon entropy of the methylation value distribution.
+
+    Healthy methylation: low and narrow (low entropy).
+    Tumor methylation (hypermethylation): spread across higher values (higher entropy).
+
+    S(X) = −∑ p(xi) log(p(xi))
+
+    Args:
+        methylation_values: array of methylation values (0.0 - 1.0)
+    
+    Returns:
+        Shannon entropy (in natural algorithms/nats)
+    """
+    counts, _ = np.histogram(methylation_values, bins = ENTROPY_BINS, range = (0,1))
+    probs = (counts + 1e-10) / (counts.sum() + ENTROPY_BINS * 1e=10)
+    return float(-np.sum(probs * np.log(probs)))
