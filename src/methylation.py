@@ -93,6 +93,7 @@ def methylation_variance(methylation_values: np.ndarray) -> float:
     """
     return float(np.var(methylation_values))
 
+
 def bimodality_score(methylation_values: np.ndarray) -> float:
     """
     Score capturing bimodality of methylation distribution.
@@ -110,6 +111,7 @@ def bimodality_score(methylation_values: np.ndarray) -> float:
     Returns:
         Bimodality score (higher = more cancer-like)
     """
+
     high_peak = methylation_values[methylation_values > 0.6]
     low_peak = methylation_values[methylation_values < 0.3]
 
@@ -117,3 +119,28 @@ def bimodality_score(methylation_values: np.ndarray) -> float:
     mean_low = np.mean(low_peak) if len(low_peak) > 0 else 0.0
 
     return float(mean_high - mean_low)
+
+
+def extract_methylation_features(sample: SampleData) -> Dict[str, float]:
+    """
+    Extract all methylation features from a single sample.
+
+    Args:
+        sample: SampleData object containing methylation values
+    
+    Returns:
+        Dictionary of feature name -> feature value
+    """
+
+    mv = sample.methylation_values
+    return {
+        'mean_methylation': mean_methylation(mv),
+        'hypermethylated_fraction': hypermethylated_fraction(mv),
+        'methylation_entropy': methylation_entropy(mv)
+        'methylation_variance': methylation_variance(mv)
+        'bimodality_score': bimodality_score(mv),
+        # Metadata
+        'sample_id': sample.sample_id,
+        'tumor_fraction': sample.tumor_fraction,
+        'is_cancer': sample.is_cancer
+    }
