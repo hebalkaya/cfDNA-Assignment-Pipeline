@@ -29,10 +29,10 @@ MAX_FRAGMENT_LENGTH = 400
 
 # Methylation parameters
 N_CPG_SITES = 500
-HEALTHY_METHYLATION_MEAN = 0.10   # was 0.15 — make healthy lower
-HEALTHY_METHYLATION_STD = 0.03    # was 0.05 — tighter
-TUMOUR_METHYLATION_MEAN = 0.85    # was 0.72 — make tumour higher
-TUMOUR_METHYLATION_STD = 0.08     # was 0.12 — tighter
+HEALTHY_METHYLATION_MEAN = 0.10     # was 0.15 — make healthy lower
+HEALTHY_METHYLATION_STDEV = 0.03      # was 0.05 — tighter
+TUMOR_METHYLATION_MEAN = 0.85       # was 0.72 — make tumor higher
+TUMOR_METHYLATION_STDEV = 0.08        # was 0.12 — tighter
 
 
 @dataclass
@@ -63,6 +63,7 @@ def simulate_fragment_lengths(
     Returns:
         Array of fragment lengths in base pair (bp)
     """
+
     n_tumor = int(n_fragments * tumor_fraction)
     n_healthy = n_fragments - n_tumor
 
@@ -80,7 +81,12 @@ def simulate_methylation(
     """
     Simulates CpG methylation values for a cfDNA/ctDNA sample.
 
-    Observed methylation if a weighted mix of healthy and tumor methylation.
+    Models cfDNA methylation as a mixture of healthy and tumor molecules.
+    Each CpG site is drawn from either the healthy or tumor distribution
+    independently, according to the tumor fraction.
+
+    This binary sampling model is more realistic than previous linear mixing.
+    Each cfDNA molecule is either from a tumor cell or a healthy cell.
 
     Args:
         tumor_fraction: proportion of tumor-derived cfDNA (0.0 - 1.0)
@@ -89,11 +95,13 @@ def simulate_methylation(
     Returns:
         Array of methylation values (0.0 to 1.0)
     """
+    # For each CpG site, decide if it came from tumor or healthy cell
+    is_tumor_molecule = rng.random(N_CPG_SITES) < tumor_fraction
 
     healthy_methylation = rng.normal(HEALTHY_METHYLATION_MEAN, HEALTHY_METHYLATION_STDEV, N_CPG_SITES)
     tumor_methylation = rng.normal(TUMOR_METHYLATION_MEAN, TUMOR_METHYLATION_STDEV, N_CPG_SITES)
 
-    mixed = (1 - tumor_fraction) * healthy_methylation + tumor_fraction * tumor_methylation
+    mixed = np.where(is_tumor_molecule, tumor_methylation, healthy_methylation)
     return np.clip(mixed, 0.0, 1.0)
 
 
