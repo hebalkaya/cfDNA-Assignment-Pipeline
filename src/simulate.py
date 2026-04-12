@@ -28,7 +28,7 @@ MAX_FRAGMENT_LENGTH = 400
 
 
 # Methylation parameters
-N_CPG_SITES = 500
+N_CPG_SITES = 1000
 HEALTHY_METHYLATION_MEAN = 0.10     # was 0.15 — make healthy lower
 HEALTHY_METHYLATION_STDEV = 0.03      # was 0.05 — tighter
 TUMOR_METHYLATION_MEAN = 0.85       # was 0.72 — make tumor higher
