@@ -196,3 +196,53 @@ TF                M1        M2
 ```
 - Both models still not performing well for TF = 0.0010
 - "Model 2 - Methylation only" significantly outperforms "Model 1 - Fragmentomics only" for fractions 0.0050 and above. **A significant improvement!** 
+#### Model 3: Fragmentomics + Methylation combined results
+```
+=========================================
+Model: Model 3 — Combined
+Features: 11
+Samples: 1800 (1500 cancer, 300 healthy)
+ROC AUC: 0.9345
+
+Sensitivity by tumor fraction:
+  TF=0.001:     0.397
+  TF=0.005:     0.940
+  TF=0.01:      0.987
+  TF=0.05:      1.000
+  TF=0.1:       1.000
+
+Top features by importance:
+  bimodality_score:     0.3147
+  methylation_variance:         0.2617
+  hypermethylated_fraction:     0.2329
+  mean_methylation:     0.0942
+  methylation_entropy:          0.0466
+  fragment_length_entropy:      0.0163
+  short_fragment_ratio:         0.0113
+  short_to_long_ratio:          0.0095
+  nucleosomal_peak_ratio:       0.0066
+  long_fragment_ratio:          0.0049
+  median_fragment_length:       0.0013
+
+=========================================
+SUMMARY COMPARISON
+=========================================
+Model                                  AUC
+=========================================
+Model 1 - Fragmentomics only        0.7584
+Model 2 - Methylation only          0.9307
+Model 3 — Combined                  0.9345
+
+Sensitivity comparison by tumor fraction:
+TF                M1        M2        M3
+-----------------------------------------
+0.0010         0.387     0.393     0.397
+0.0050         0.497     0.940     0.940
+0.0100         0.597     0.987     0.987
+0.0500         0.947     1.000     1.000
+0.1000         1.000     1.000     1.000
+```
+- M3 (combined) outperforms M2 only slightly for TF = 0.0010.
+- M2 and M3 perform equally for TF 0.0050 and above.
+- M3 does not significantly improve the classification sensitivity
+**- Could try Random Forest + Logistic Regression classifier**
