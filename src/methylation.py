@@ -10,4 +10,15 @@ Biological basis:
     Source papers:
     * Hanahan & Weinberg, 2011, Cell (Hallmarks of Cancer: The Next Generation)
     * Moss et al., 2018, Nature Communications 2018 (Comprehensive human cell-type methylation atlas reveals origins of circulating cell-free DNA in health and disease)
+
+    See the code for biologically methylation thresholds
 """
+
+import numpy as np
+import pandas as pd
+from typing import List, Dict
+from src.simulate import SampleData
+
+# Methylation thresholds
+HYPERMETHYLATION_THRESHOLD = 0.5    # CpGs above this are "hypermethylated"
+ENTROPY_BINS = 20                   # bins for entropy calculation
