@@ -129,6 +129,9 @@ tumor_fraction
 
 #### Model 1 (Fragmentomics) vs Model 2 (Methylation) Results
 ```
+Generating dataset ...
+Extracting features ...
+
 =========================================
 Training Model 1: Fragmentomics only ...
 
@@ -168,10 +171,10 @@ Sensitivity by tumor fraction:
   TF=0.1:       1.000
 
 Top features by importance:
-  bimodality_score:             0.3844
+  bimodality_score:     0.3844
   methylation_variance:         0.3356
   hypermethylated_fraction:     0.1568
-  mean_methylation:             0.1115
+  mean_methylation:     0.1115
   methylation_entropy:          0.0116
 
 =========================================
