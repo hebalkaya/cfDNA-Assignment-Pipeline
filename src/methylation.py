@@ -113,8 +113,7 @@ def bimodality_score(methylation_values: np.ndarray) -> float:
     high_peak = methylation_values[methylation_values > 0.6]
     low_peak = methylation_values[methylation_values < 0.3]
 
-    mean_high = np.mean(high_peak) if len(high_peak) 0 else 0.0
+    mean_high = np.mean(high_peak) if len(high_peak) > 0 else 0.0
     mean_low = np.mean(low_peak) if len(low_peak) > 0 else 0.0
 
     return float(mean_high - mean_low)
-    

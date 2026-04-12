@@ -38,3 +38,11 @@ def test_variance_is_nonnegative():
     """Making sure variange is non negative( == 0 or > than 0)"""
     var = methylation_variance(HEALTHY_SAMPLE.methylation_values)
     assert var >= 0.0
+
+
+def test_bimodality_score_tumor_greater():
+    """Making sure tumor sample has higher bimodality score than healthy sample"""
+    healthy = bimodality_score(HEALTHY_SAMPLE.methylation_values)
+    tumor = bimodality_score(TUMOR_SAMPLE.methylation_values)
+    assert tumor > healthy
+
