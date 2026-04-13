@@ -99,7 +99,7 @@ cfDNA-Assignment-Pipeline/
 │   ├── test_fragmentomics.py
 │   ├── test_methylation.py
 │   └── test_classifier.py
-|
+│
 ├── results/                    ← gitignored, created locally
 ├── Dockerfile
 ├── docker-compose.yml
