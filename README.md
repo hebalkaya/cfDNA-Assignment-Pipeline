@@ -42,15 +42,15 @@ cfDNA-Assignment-Pipeline/
 │   ├── test_fragmentomics.py
 │   ├── test_methylation.py
 │   └── test_classifier.py
-├── notebooks/
-│   └── explore.py              ← local only
+|
 ├── results/                    ← gitignored, created locally
 ├── Dockerfile
 ├── docker-compose.yml
 ├── requirements.txt
 ├── run_analysis.py
-├── main.nf
-├── nextflow.config
+├── setup.py
+├── Logbook.md
+├── Notes.md
 └── README.md
 ```
 
