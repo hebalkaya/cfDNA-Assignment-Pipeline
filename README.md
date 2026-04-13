@@ -1,8 +1,65 @@
-# cfDNA Assignment Pipeline
+# cfDNA Multi-Signal Cancer Detection Pipeline
 Initiated on April 10, 2026 to showcase a bioinformatician's relevant abilities in an interview.
+
+This is a bioinformatics pipeline for ultra-sensitive cancer detection from 
+cell-free DNA (cfDNA) using fragmentomics and DNA methylation signals.
 
 ## Over the Idea
 Tumour-derived cfDNA differs from healthy cfDNA in two independent ways: how it's fragmented and how it's methylated. By building a pipeline that extracts and combines both signals, we can detect cancer at lower tumour fractions than either signal alone.
+
+1. **Fragment length:** Tumor cfDNA is shorter (~143bp) than healthy 
+   cfDNA (~167bp) due to altered chromatin structure in cancer cells.
+2. **DNA methylation:** Tumour cfDNA is hypermethylated at 
+   cancer-specific CpG islands, a hallmark of cancer.
+
+This pipeline extracts both signals, trains Random Forest classifiers 
+on each independently and in combination, and benchmarks sensitivity 
+at relevant tumour fractions (0.1%, 0.5%, 1%, 5%, 10%).
+
+## Key results
+
+| Model | AUC | Sensitivity at 0.1% TF | Sensitivity at 0.5% TF |
+|---|---|---|---|
+| Fragmentomics only | 0.726 | 35.7% | 40.3% |
+| Methylation only | 0.964 | 68.0% | 99.0% |
+| Combined | 0.964 | 67.3% | 99.0% |
+
+**Finding 1:** Fragmentomics alone fails below 1% tumour fraction. 
+Sensitivity is near random at clinically relevant concentrations.
+
+**Finding 2:** Methylation is the dominant signal. AUC jumps from 
+0.726 to 0.964, and sensitivity at 0.5% TF goes from 40% to 99%.
+
+**Finding 3:** Combining both signals adds marginal improvement, 
+confirming the signals are correlated rather than independent.
+
+## Quick Start
+
+### Requirements
+- Docker Desktop
+- Python 3.11+ (for local development only)
+
+### Run the full pipeline
+
+```bash
+git clone https://github.com/hebalkaya/cfDNA-Assignment-Pipeline.git
+cd cfDNA-Assignment-Pipeline
+mkdir -p results
+docker compose run pipeline
+```
+
+This runs the complete pipeline in ~60 seconds and writes results to 
+`results/`:
+- `summary.csv` — numerical results table
+
+### Run tests
+
+```bash
+docker compose run test
+```
+
+All 30+ unit tests run inside the Docker container. CI also runs 
+automatically on every push via GitHub Actions.
 
 ## On the Data
 ### Option A: Simulate with real parameters
@@ -47,7 +104,7 @@ cfDNA-Assignment-Pipeline/
 ├── Dockerfile
 ├── docker-compose.yml
 ├── requirements.txt
-├── run_analysis.py
+├── run_analysis.py             # Single entry point
 ├── setup.py
 ├── Logbook.md
 ├── Notes.md
@@ -77,8 +134,8 @@ Hypermethylated CpG fraction
 ### Module 4 — Classifier (classifier.py)
 Training three scikit-learn classifiers:
 - [X] Fragmentomics features only → Random Forest
-- [ ] Methylation features only → Random Forest
-- [ ] Combined features → Random Forest + Logistic Regression?
+- [X] Methylation features only → Random Forest
+- [X] Combined features → Random Forest + Logistic Regression?
 Comparing sensitivity and specificity at each tumour fraction threshold.
 
 > Upcoming modules will be added once ready
@@ -86,32 +143,9 @@ Comparing sensitivity and specificity at each tumour fraction threshold.
 ### Module 5 — Nextflow pipeline
 ### Module 6 — Reporting
 
-### Model 1 Results: Random Forest on Fragmentomics only 
-```
-Generating dataset ...
-Extracting fragmentomics features ...
-Training Model 1: Fragmentomics only ...
-
-=========================================
-Model: Model 1 - Fragmentomics Only
-Features: 6
-Samples: 1800 (1500 cancer, 300 healthy)
-ROC AUC: 0.7505
-
-Sensitivity by tumor fraction:
-  TF=0.001:     0.343
-  TF=0.005:     0.473
-  TF=0.01:      0.600
-  TF=0.05:      0.940
-  TF=0.1:       0.997
-
-Top features by importance:
-  fragment_length_entropy:      0.3325
-  short_fragment_ratio:         0.2610
-  short_to_long_ratio:          0.2065
-  nucleosomal_peak_ratio:       0.0867
-  long_fragment_ratio:          0.0705
-  median_fragment_length:       0.0427
-
-Final AUC: 0.750460
-```
+## References
+- Snyder et al. (2016) Cell: Cell-free DNA Comprises an In Vivo Nucleosome Footprint that Informs Its Tissues-Of-Origin
+- Mouliere et al. (2018) Science Translational Medicine: Enhanced detection of circulating tumor DNA by fragment size analysis
+- Cristiano et al. (2019) Nature: Genome-wide cell-free DNA fragmentation in patients with cancer
+- Chen et al. (2025) Genome Research: Nanopore-based consensus sequencing enables accurate multimodal tumor cell-free DNA profiling
+- Hanahan & Weinberg (2011) Cell: Hallmarks of Cancer: The Next Generation
