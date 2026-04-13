@@ -50,7 +50,7 @@ docker compose run pipeline
 
 This runs the complete pipeline in ~60 seconds and writes results to 
 `results/`:
-- `summary.csv` — numerical results table
+- `summary.csv`
 
 ### Run tests
 
