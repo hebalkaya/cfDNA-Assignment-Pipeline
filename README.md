@@ -108,6 +108,7 @@ cfDNA-Assignment-Pipeline/
 ├── setup.py
 ├── Logbook.md
 ├── Notes.md
+├── GCPVMSetup.md
 └── README.md
 ```
 
