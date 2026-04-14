@@ -124,7 +124,7 @@ Extracting the following features for each sample extract:
 * Nucleosomal periodicity score
 * Fragment length entropy
 
-### Module 3 — Methylation feature extraction (methylation.py) [Coming soon]
+### Module 3 — Methylation feature extraction (methylation.py)
 For each sample extract:
 
 Mean methylation at cancer-specific CpG islands (using published cancer methylation signatures)
