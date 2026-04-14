@@ -19,7 +19,7 @@ at relevant tumour fractions (0.1%, 0.5%, 1%, 5%, 10%).
 ## Key results
 
 | Model | AUC | Sensitivity at 0.1% TF | Sensitivity at 0.5% TF |
-|-------|-----| :--------------------: |: --------------------: |
+|-------|-----|:----------------------:|:----------------------:|
 | Fragmentomics only | 0.726 | 35.7% | 40.3% |
 | Methylation only | 0.964 | 68.0% | 99.0% |
 | Combined | 0.964 | 67.3% | 99.0% |
